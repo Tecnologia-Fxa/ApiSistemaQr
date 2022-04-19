@@ -1,0 +1,20 @@
+{
+  "name": "api-sistema-qr",
+  "version": "1.0.0",
+  "description": "Full API Rest, usa express para inicializar el servidor, tambien usa sequelize para el mapeo a la base de datos, toda la información que entra y sale es tipo Json... el uso de esta api es para el registro de usuarios para un cmr mediante un qr que llevara al front donde el usuario registrara su información personal... Tambien esta api tiene consulta de todos los usuarios mediante el logueo y uso de token con jwt-simple ",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-validator": "^6.14.0",
+    "jwt-simple": "^0.5.6",
+    "moment": "^2.29.3",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15",
+    "sequelize": "^6.19.0"
+  }
+}
