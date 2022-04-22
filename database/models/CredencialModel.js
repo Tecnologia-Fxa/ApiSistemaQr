@@ -44,17 +44,6 @@ CredencialModel.init({
         type:DataTypes.STRING(200),
         //Campo obligatorio
         allowNull:false
-    },
-    
-    //campo que almacenara el rol para la gestion de permisos del sistema
-    rol:{
-        //Tipo de dato string con un maximo de caracteres de 20
-        type:DataTypes.STRING(20),
-        //Campo obligatorio
-        allowNull:false,
-        //Campo unico
-        //Es unico para evitar la creasion excesiva de credenciales
-        unique:true
     }
 
 },{

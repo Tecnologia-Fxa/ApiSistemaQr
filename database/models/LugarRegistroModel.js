@@ -42,7 +42,7 @@ LugarRegistroModel.init({
         //Tipo de dato es booleano, para ahorrar espacio en la bd
         type:DataTypes.BOOLEAN,
         //Por defecto cada codico creado tendra como valor 1 = "activo"
-        defaultValue:1
+        defaultValue:true
     }
 
 },{

@@ -30,7 +30,7 @@ CodigoDescuentoModel.init({
     //Campo que almacenara el codigo como tal
     desc_codigo:{
         //Tipo de dato string con un maximo de caracteres de 10
-        type:DataTypes.STRING(10),
+        type:DataTypes.STRING(16),
         //Campo obligatorio
         allowNull:false,
         //Campo unico
