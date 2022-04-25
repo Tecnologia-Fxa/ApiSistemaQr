@@ -22,7 +22,29 @@ const UsuarioController = {
             include:[
                 {model:PaisModel, attributes:["id_pais","codigo_telefonico"]},
                 {model:LugarRegistroModel, attributes:["id_lugar_registro", "nombre_lugar_registro"]},
-                {model:CiudadModel, attributes:["id_ciudad", "nombre_ciudad"]}
+                {model:CiudadModel, attributes:["id_ciudad", "nombre_ciudad"]},
+                {model:CodigoDescuentoModel, attributes:["estado"]}
+            ]
+        })
+
+        const respuesta = getPagingData(usuarios, page, limit)
+
+        res.json(respuesta)
+    },
+
+    getbyStateCod:async(req,res)=>{
+        const { page, size, estado_code} = req.query;
+        const { limit, offset } = getPagination(page, size);
+
+        const usuarios = await UsuarioModel.findAndCountAll({
+            limit,
+            offset,
+            attributes:["id_usuario", "nombres", "apellidos", "correo_electronico", "fecha_nacimiento", "telefono_contacto", "createdAt", "updatedAt"],
+            include:[
+                {model:PaisModel, attributes:["id_pais","codigo_telefonico"]},
+                {model:LugarRegistroModel, attributes:["id_lugar_registro", "nombre_lugar_registro"]},
+                {model:CiudadModel, attributes:["id_ciudad", "nombre_ciudad"]},
+                {model:CodigoDescuentoModel, attributes:["estado"],where:{estado:estado_code}}
             ]
         })
 
@@ -55,6 +77,13 @@ const UsuarioController = {
         const usuarios = await UsuarioModel.findAndCountAll({
             limit,
             offset,
+            attributes:["id_usuario", "nombres", "apellidos", "correo_electronico", "fecha_nacimiento", "telefono_contacto", "createdAt", "updatedAt"],
+            include:[
+                {model:PaisModel, attributes:["id_pais","codigo_telefonico"]},
+                {model:LugarRegistroModel, attributes:["id_lugar_registro", "nombre_lugar_registro"]},
+                {model:CiudadModel, attributes:["id_ciudad", "nombre_ciudad"]},
+                {model:CodigoDescuentoModel, attributes:["estado"]}
+            ],
             where:{
                 [atribute]:{[getMethod(method)]:value}
             }

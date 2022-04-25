@@ -7,6 +7,11 @@ const LugarRegistroController = {
         res.json(lugares)
     },
 
+    getAllActive:async(_req,res)=>{
+        const lugares = await LugarRegistroModel.findAll({where:{estado:true}})
+        res.json(lugares)
+    },
+
     getOne:async(req,res)=>{
         const { id_lugar_registro } = req.query
 
@@ -48,7 +53,7 @@ const LugarRegistroController = {
         const {id_lugar_registro} = req.query
 
         await LugarRegistroModel.update({estado:1},{where:{id_lugar_registro}})
-        res.json("Inactivado Con Exito")
+        res.json("Activado Con Exito")
     }
 
 }

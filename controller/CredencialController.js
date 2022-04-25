@@ -1,17 +1,41 @@
 const CredencialModel = require("../database/models/CredencialModel")
 
 const bcrypt = require("bcrypt")
+const { validationResult } = require("express-validator")
+
+const jwt = require('jwt-simple')
+require ('dotenv').config();
+const moment = require('moment');
+
+const tokenAcceso = (rol) =>{
+    let payload ={
+        rol:rol,
+        createAt: moment().unix(),
+        expiredAt: moment().add(90,'minutes').unix()
+    }
+
+    return jwt.encode(payload, process.env.PASSDECODE)
+}
 
 const CredencialController = {
 
     logIn:async(req,res)=>{
         const { nombre_usuario, contraseña } = req.body
 
-        const user = CredencialModel.findOne({where:{nombre_usuario}})
-        if(user.nombre_usuario)
-            res.json(user)
-        else
-            res.json("error")
+        const errors = validationResult(req)
+        if(!errors.isEmpty()){
+            return res.status(400).json({ errors:errors.array() })
+        }
+
+        const user = await CredencialModel.findOne({where:{nombre_usuario}})
+        if(user){
+            let log = bcrypt.compareSync(contraseña, user.contraseña)
+            if(log)
+                res.json(tokenAcceso(user.nombre_usuario))
+            else 
+                res.json("Error usuario y/o contraseña incorrectos")     
+        }else
+            res.json("Error usuario y/o contraseña incorrectos")
     },
 
     createCredencials: async(_req,res)=>{
