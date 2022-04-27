@@ -3,7 +3,6 @@ const UsuarioModel = require("../database/models/UsuarioModel")
 const CodigoDescuentoModel = require("../database/models/CodigoDescuentoModel");
 const {randomBytes} = require("crypto");
 const { default: axios } = require("axios");
-const PaisModel = require("../database/models/PaisModel");
 const { sendSMSCode } = require("../helpers/sendSms");
 
 const newCode = async() =>{
@@ -36,10 +35,8 @@ const NewUsuario = {
             apellidos, 
             correo_electronico, 
             fecha_nacimiento,
-            pais_telefono_fk, 
             telefono_contacto, 
-            lugar_registro_fk,
-            ciudad_fk
+            lugar_registro_fk
         } = req.body
         
         const errors = validationResult(req)
@@ -57,11 +54,10 @@ const NewUsuario = {
                 apellidos, 
                 correo_electronico, 
                 fecha_nacimiento,
-                pais_telefono_fk, 
                 telefono_contacto, 
-                lugar_registro_fk,
-                ciudad_fk
+                lugar_registro_fk
             })
+
 
             //---------------- Generar Codigo de Descuento
             
@@ -72,19 +68,16 @@ const NewUsuario = {
 
             //-------Enviar Codigo a Eureka
             const msgSendCode = await sendCode(codigoDescuentoCreado.desc_codigo)
-            
             if(!msgSendCode.codigo)
                 throw {type:"ServerError", message:"Error en el servidor"};
 
-            //------------ Consulta El Codigo Telefonico Del Pais
-
-            const dataPais = await PaisModel.findOne({where:{id_pais:usuarioCreado.pais_telefono_fk}})
 
             //------------- Enviar Mensaje De Texto
 
-            if(usuarioCreado.telefono_contacto === '3132286510' || usuarioCreado.telefono_contacto === '3209897269'){
-                const responseSms = await sendSMSCode( telefono_contacto, dataPais.codigo_telefonico, msgSendCode.codigo, usuarioCreado.nombres)
-                if(!responseSms.status ===201)
+
+            if(usuarioCreado.telefono_contacto === '+573132286510' || usuarioCreado.telefono_contacto === '+573209897269'){
+                const responseSms = await sendSMSCode( telefono_contacto, msgSendCode.codigo, usuarioCreado.nombres)
+                if(!responseSms.status === 201)
                     throw {type:"SmsError", message:"Error al enviar el mensaje", err:responseSms.err};
 
             }

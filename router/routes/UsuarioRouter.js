@@ -1,19 +1,19 @@
 const router = require("express").Router();
 
 const  UsuarioController  = require("../../controller/UsuarioController");
-const { validationFilterOptions, validationStatusCode } = require("../../validations/validationFilterOptions");
-const { validationUsuario } = require("../../validations/validationUsuario");
+const { validationFilterOptions, validationStatusCode, validationPagination } = require("../../validations/validationFilterOptions");
+const { validationUsuario, validateId } = require("../../validations/validationUsuario");
 
 
-router.get('/', UsuarioController.getAll)
+router.get('/', validationPagination, UsuarioController.getAll)
 
-router.get('/filtered-users', validationFilterOptions, UsuarioController.getFiltered)
+router.get('/filtered-users', validationFilterOptions, validationPagination, UsuarioController.getFiltered)
 
 router.get('/getby-state-code', validationStatusCode, UsuarioController.getbyStateCod)
 
-router.put('/update', validationUsuario,UsuarioController.update)
+router.put('/update', validationUsuario, validateId, UsuarioController.update)
 
-router.delete('/delete', UsuarioController.delete)
+router.delete('/delete', validateId, UsuarioController.delete)
 
 
 module.exports =  router

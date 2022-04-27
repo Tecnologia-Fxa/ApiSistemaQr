@@ -1,6 +1,4 @@
-const CiudadModel = require("../database/models/CiudadModel")
 const LugarRegistroModel = require("../database/models/LugarRegistroModel")
-const PaisModel = require("../database/models/PaisModel")
 const UsuarioModel = require("../database/models/UsuarioModel")
 const { getPagination, getPagingData } = require("../helpers/paginationHelper")
 const { Op } = require("sequelize")
@@ -20,9 +18,7 @@ const UsuarioController = {
             offset,
             attributes:["id_usuario", "nombres", "apellidos", "correo_electronico", "fecha_nacimiento", "telefono_contacto", "createdAt", "updatedAt"],
             include:[
-                {model:PaisModel, attributes:["id_pais","codigo_telefonico"]},
                 {model:LugarRegistroModel, attributes:["id_lugar_registro", "nombre_lugar_registro"]},
-                {model:CiudadModel, attributes:["id_ciudad", "nombre_ciudad"]},
                 {model:CodigoDescuentoModel, attributes:["estado"]}
             ]
         })
@@ -41,9 +37,7 @@ const UsuarioController = {
             offset,
             attributes:["id_usuario", "nombres", "apellidos", "correo_electronico", "fecha_nacimiento", "telefono_contacto", "createdAt", "updatedAt"],
             include:[
-                {model:PaisModel, attributes:["id_pais","codigo_telefonico"]},
                 {model:LugarRegistroModel, attributes:["id_lugar_registro", "nombre_lugar_registro"]},
-                {model:CiudadModel, attributes:["id_ciudad", "nombre_ciudad"]},
                 {model:CodigoDescuentoModel, attributes:["estado"],where:{estado:estado_code}}
             ]
         })
@@ -79,9 +73,7 @@ const UsuarioController = {
             offset,
             attributes:["id_usuario", "nombres", "apellidos", "correo_electronico", "fecha_nacimiento", "telefono_contacto", "createdAt", "updatedAt"],
             include:[
-                {model:PaisModel, attributes:["id_pais","codigo_telefonico"]},
                 {model:LugarRegistroModel, attributes:["id_lugar_registro", "nombre_lugar_registro"]},
-                {model:CiudadModel, attributes:["id_ciudad", "nombre_ciudad"]},
                 {model:CodigoDescuentoModel, attributes:["estado"]}
             ],
             where:{
@@ -101,31 +93,32 @@ const UsuarioController = {
         apellido,
         correo_electronico,
         fecha_nacimiento,
-        pais_telefono_fk,
         telefono_contacto,
-        lugar_registro_fk,
-        ciudad_fk } = req.body
+        lugar_registro_fk } = req.body
         
-        await UsuarioModel.update(
-            {
+        try {
+            
+            await UsuarioModel.update(
+                {
                 nombres,
                 apellido,
                 correo_electronico,
                 fecha_nacimiento,
-                pais_telefono_fk,
                 telefono_contacto,
-                lugar_registro_fk,
-                ciudad_fk
+                lugar_registro_fk
             },
             {
                 where:{id_usuario}
             }
-        )
-        
-
-        res.json(`Usuario actualizado`)
-
-    } ,
+            )
+            
+            
+            res.json(`Usuario actualizado`)
+        } catch (error) {
+            res.json({error:error.message})   
+        }
+            
+        } ,
 
     delete: async(req,res)=>{
         const { id_usuario } = req.query

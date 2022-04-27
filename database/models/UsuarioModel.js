@@ -62,18 +62,11 @@ UsuarioModel.init({
         allowNull:false
     },
 
-    //Campo que almacena el lugar de donde es el telefono, para el codigo telefonico de pais 
-    //Se almacena mediante una foranea que hace referencia a la tabla de pais
-    pais_telefono_fk:{
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-
     //Campo que almacena el número de telefono de contacto del usuario
     //Este es el número al que se le va a enviar el codigo de descuento
     telefono_contacto:{
         //Tipo de dato tecto ya que no se haran operaciones matematicas con este número
-        type: DataTypes.STRING(20),
+        type: DataTypes.STRING(30),
         //Campo obligatorio
         allowNull:false,
         //Campo unico
@@ -85,12 +78,6 @@ UsuarioModel.init({
 
     //Campo que almacena la foranea a la tabla que tiene los lugares de registro
     lugar_registro_fk:{
-        type: DataTypes.INTEGER,
-        allowNull:false
-    },
-
-    //Campo que almacena la respectiuva ciudad donde se registra el usuario
-    ciudad_fk:{
         type: DataTypes.INTEGER,
         allowNull:false
     }

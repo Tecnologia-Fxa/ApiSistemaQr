@@ -1,5 +1,4 @@
 const checkTokenLogin = require("../helpers/validacionLogin");
-const DefaultQueryRouter = require("./routes/DefaultQueryRouter");
 
 const router = require("express").Router();
 
@@ -13,13 +12,6 @@ router.use('/credencial', require('./routes/CredencialRouter'))
 
 router.use('/lugar-registro', require('./routes/LugarRegistroRouter'))
 
-router.use('/gen-reporte', require('./routes/GenReporteRouter'))
-
-//?_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-
-router.use('/ciudad', DefaultQueryRouter("CiudadModel", "estado_fk"))
-router.use('/estado', DefaultQueryRouter("EstadoModel", "pais_fk"))
-router.use('/pais', DefaultQueryRouter("PaisModel", "id_pais"))
-router.use('/pais', require('./routes/DataPaisEstadoCiudadRouter'))
+router.use('/gen-reporte', checkTokenLogin, require('./routes/GenReporteRouter'))
 
 module.exports = router

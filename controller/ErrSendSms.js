@@ -1,7 +1,6 @@
 const { default: axios } = require("axios")
 const { randomBytes } = require("crypto")
 const CodigoDescuentoModel = require("../database/models/CodigoDescuentoModel")
-const PaisModel = require("../database/models/PaisModel")
 const UsuarioModel = require("../database/models/UsuarioModel")
 const { sendSMSCode } = require("../helpers/sendSms")
 
@@ -32,67 +31,70 @@ const ErrSendSms = async(req,res)=>{
 
     const usuario = await UsuarioModel.findOne({
         where:{telefono_contacto},
-        attributes:['id_usuario', 'nombres', 'pais_telefono_fk', 'telefono_contacto'],
+        attributes:['id_usuario', 'nombres', 'telefono_contacto'],
         include:{
             model:CodigoDescuentoModel,
             attributes:['id_codigo_descuento', 'desc_codigo', 'estado']
         } 
     })
 
+    if(usuario){
 
-    //------------ Consulta El Codigo Telefonico Del Pais
+        try {
 
-    let dataPais = await PaisModel.findOne({where:{id_pais:usuario.pais_telefono_fk}})
+            if(usuario.codigo_descuento){
+                
+                if(!usuario.codigo_descuento.estado){
+                    //------------- Enviar Mensaje De Texto
+                    if(usuario.telefono_contacto === '+573132286510' || usuario.telefono_contacto === '+573209897269'){
+                        const responseSms = await sendSMSCode( telefono_contacto, usuario.codigo_descuento.desc_codigo, usuario.nombres)
+                        if(!responseSms.status ===201)
+                            throw {type:"SmsError", message:"Error al enviar el mensaje", err:responseSms.err};
+                        res.json("Codigo Reenviado")
+                    }
+                }else{
+                    res.json("El código ya ha sido conjeado")
+                }
 
-    try {
+            }else{
 
-        if(usuario.codigo_descuento){
-            
-            if(!usuario.codigo_descuento.estado){
+                const codigoDescuentoCreado = await CodigoDescuentoModel.create({
+                    desc_codigo: await newCode(usuario),
+                    usuario_fk:usuario.id_usuario
+                })
+                //-------Enviar Codigo a Eureka
+                const msgSendCode = await sendCode(codigoDescuentoCreado.desc_codigo)
+                    
+                if(!msgSendCode.codigo)
+                    throw {type:"ServerError", message:"Error en el servidor"};
+
                 //------------- Enviar Mensaje De Texto
-                if(usuario.telefono_contacto === '3132286510' || usuario.telefono_contacto === '3209897269'){
-                    const responseSms = await sendSMSCode( telefono_contacto, dataPais.codigo_telefonico, usuario.codigo_descuento.desc_codigo, usuario.nombres)
+
+                if(usuario.telefono_contacto === '+573132286510' || usuario.telefono_contacto === '+573209897269'){
+                    const responseSms = await sendSMSCode( telefono_contacto, msgSendCode.codigo, usuario.nombres)
                     if(!responseSms.status ===201)
                         throw {type:"SmsError", message:"Error al enviar el mensaje", err:responseSms.err};
-                    res.json("Codigo Reenviado")
+
                 }
-            }else{
-                res.json("Codigo ya sido conjeado")
+
+                //------------- Respuesta de La Api
+
+                res.json({message:"Creado"})
             }
 
-        }else{
-
-            const codigoDescuentoCreado = await CodigoDescuentoModel.create({
-                desc_codigo: await newCode(usuario),
-                usuario_fk:usuario.id_usuario
-            })
-            //-------Enviar Codigo a Eureka
-            const msgSendCode = await sendCode(codigoDescuentoCreado.desc_codigo)
-                
-            if(!msgSendCode.codigo)
-                throw {type:"ServerError", message:"Error en el servidor"};
-
-            //------------- Enviar Mensaje De Texto
-
-            if(usuario.telefono_contacto === '3132286510' || usuario.telefono_contacto === '3209897269'){
-                const responseSms = await sendSMSCode( telefono_contacto, dataPais.codigo_telefonico, msgSendCode.codigo, usuario.nombres)
-                if(!responseSms.status ===201)
-                    throw {type:"SmsError", message:"Error al enviar el mensaje", err:responseSms.err};
-
-            }
-
-            //------------- Respuesta de La Api
-
-            res.json({message:"Creado"})
+        }catch (error) {
+            if (error.type ==="ServerError" || error.type ==="SmsError" || error.code==="ECONNREFUSED" || error.code==="ER_DUP_ENTRY"){
+                await UsuarioModel.destroy({where:{id_usuario:usuarioCreado.id_usuario}})
+                res.json({error:error.message})
+            }else
+                res.json({error:error.message}) 
         }
 
-    }catch (error) {
-        if (error.type ==="ServerError" || error.type ==="SmsError" || error.code==="ECONNREFUSED" || error.code==="ER_DUP_ENTRY"){
-            await UsuarioModel.destroy({where:{id_usuario:usuarioCreado.id_usuario}})
-            res.json({error:error.message})
-        }else
-            res.json({error:error.message}) 
-    }
+    }else
+        res.json("Es necesario un registro previo para reenviar el mensaje")
+    
+
+    
 
 }
 

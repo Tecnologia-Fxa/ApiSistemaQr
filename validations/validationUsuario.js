@@ -1,6 +1,6 @@
 const { validateResult } = require('../helpers/validationHelper')
 
-const { validateParam, validateName, validateLength, validateEmail, validateDate } = require('./validations')
+const { validateParam, validateName, validateLength, validateEmail, validateDate, validateParamQuery, validatePhone } = require('./validations')
 
 const validationUsuario = [
     validateParam('nombres'),
@@ -13,13 +13,21 @@ const validationUsuario = [
     validateEmail('correo_electronico'),
     validateLength('correo_electronico', {min:6, max:75}),
     validateParam('fecha_nacimiento'),
-    validateDate('fecha_nacimiento'),
-    validateParam('pais_telefono_fk'),
     validateParam('telefono_contacto'),
-    validateLength('telefono_contacto', {min:4, max:20}),
+    validatePhone('telefono_contacto'),
+    validateLength('telefono_contacto', {min:4, max:30}),
     validateParam('lugar_registro_fk'),
-    validateParam('ciudad_fk'),
     (req,res,next)=>validateResult(req,res,next)
 ]
 
-module.exports = { validationUsuario }
+const validateId = [
+    validateParamQuery("id_usuario"),
+    (req,res,next)=>validateResult(req,res,next)
+]
+
+const validationErrSendSms = [
+    validateParam('telefono_contacto'),
+    (req,res,next)=>validateResult(req,res,next)
+]
+
+module.exports = { validationUsuario, validationErrSendSms, validateId }

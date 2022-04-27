@@ -1,10 +1,10 @@
 const { PublishCommand } = require("@aws-sdk/client-sns");
 const { snsClient } = require("./snsClient");
 
-const sendSMSCode = async (numeroTelefono, codigoPaisTelefono, codigoDescuento, nombre) => {
+const sendSMSCode = async (numeroTelefono, codigoDescuento, nombre) => {
     const params = {
         Message: `Hola ${nombre} te damos la bienvenida a FXA! \nTu codigo de descuento es: ${codigoDescuento}`,
-        PhoneNumber: `+${codigoPaisTelefono}${numeroTelefono}`, 
+        PhoneNumber: numeroTelefono, 
         };
         
     try {

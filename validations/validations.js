@@ -6,6 +6,12 @@ const validateExist = (param) =>{
             .withMessage('El Parametro debe estar definido')
 }
 
+const validatePhone = (param) =>{
+    return check(param)
+            .isMobilePhone()
+            .withMessage('El Parametro debe tener un formato de número de telefono valido')
+}
+
 const validateArray = (param) =>{
     return check(param)
             .isArray()
@@ -79,6 +85,7 @@ module.exports ={
     validateDate,
     validateEmail,
     validateEquals,
+    validatePhone,
     validateParamQuery,
     validateArray
 }
