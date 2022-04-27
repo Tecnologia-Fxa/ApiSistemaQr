@@ -4,6 +4,9 @@
   "description": "Full API Rest, usa express para inicializar el servidor, tambien usa sequelize para el mapeo a la base de datos, toda la información que entra y sale es tipo Json... el uso de esta api es para el registro de usuarios para un cmr mediante un qr que llevara al front donde el usuario registrara su información personal... Tambien esta api tiene consulta de todos los usuarios mediante el logueo y uso de token con jwt-simple ",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "@aws-sdk/client-sns": "^3.72.0",
     "axios": "^0.26.1",
