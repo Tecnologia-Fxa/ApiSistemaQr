@@ -12,11 +12,11 @@ require ('dotenv').config();
 const sequelize = new Sequelize(
     //Para obtener cada una de las variables de entorno se usa el objeto process.env despues se pone el nombre de la variable
     process.env.DATABASE,
-    process.env.USER,
-    process.env.PASS,
+    process.env.USERDATABASE,
+    process.env.PASSDATABASE,
     {
-        host: process.env.HOST,
-        dialect: process.env.DIALECT
+        host: process.env.HOSTDATABASE,
+        dialect: process.env.DIALECTDATABASE
     }
 );
 
