@@ -16,7 +16,7 @@ const UsuarioController = {
         const usuarios = await UsuarioModel.findAndCountAll({
             limit,
             offset,
-            attributes:["id_usuario", "nombres", "apellidos", "correo_electronico", "fecha_nacimiento", "telefono_contacto", "createdAt", "updatedAt"],
+            attributes:["id_usuario", "nombres", "apellidos", "correo_electronico", "fecha_nacimiento", "telefono_contacto", "numero_doc", "createdAt", "updatedAt"],
             include:[
                 {model:LugarRegistroModel, attributes:["id_lugar_registro", "nombre_lugar_registro"]},
                 {model:CodigoDescuentoModel, attributes:["estado"]}
@@ -35,7 +35,7 @@ const UsuarioController = {
         const usuarios = await UsuarioModel.findAndCountAll({
             limit,
             offset,
-            attributes:["id_usuario", "nombres", "apellidos", "correo_electronico", "fecha_nacimiento", "telefono_contacto", "createdAt", "updatedAt"],
+            attributes:["id_usuario", "nombres", "apellidos", "correo_electronico", "fecha_nacimiento", "telefono_contacto", "numero_doc", "createdAt", "updatedAt"],
             include:[
                 {model:LugarRegistroModel, attributes:["id_lugar_registro", "nombre_lugar_registro"]},
                 {model:CodigoDescuentoModel, attributes:["estado"],where:{estado:estado_code}}
@@ -71,7 +71,7 @@ const UsuarioController = {
         const usuarios = await UsuarioModel.findAndCountAll({
             limit,
             offset,
-            attributes:["id_usuario", "nombres", "apellidos", "correo_electronico", "fecha_nacimiento", "telefono_contacto", "createdAt", "updatedAt"],
+            attributes:["id_usuario", "nombres", "apellidos", "correo_electronico", "fecha_nacimiento", "telefono_contacto", "numero_doc", "createdAt", "updatedAt"],
             include:[
                 {model:LugarRegistroModel, attributes:["id_lugar_registro", "nombre_lugar_registro"]},
                 {model:CodigoDescuentoModel, attributes:["estado"]}
@@ -94,6 +94,7 @@ const UsuarioController = {
         correo_electronico,
         fecha_nacimiento,
         telefono_contacto,
+        numero_doc,
         lugar_registro_fk } = req.body
         
         try {
@@ -105,6 +106,7 @@ const UsuarioController = {
                 correo_electronico,
                 fecha_nacimiento,
                 telefono_contacto,
+                numero_doc,
                 lugar_registro_fk
             },
             {

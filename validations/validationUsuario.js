@@ -16,6 +16,8 @@ const validationUsuario = [
     validateParam('telefono_contacto'),
     validatePhone('telefono_contacto'),
     validateLength('telefono_contacto', {min:4, max:30}),
+    validateParam('numero_doc'),
+    validateLength('numero_doc', {min:4, max:25}),
     validateParam('lugar_registro_fk'),
     (req,res,next)=>validateResult(req,res,next)
 ]

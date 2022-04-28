@@ -35,7 +35,8 @@ const NewUsuario = {
             apellidos, 
             correo_electronico, 
             fecha_nacimiento,
-            telefono_contacto, 
+            telefono_contacto,
+            numero_doc,
             lugar_registro_fk
         } = req.body
         
@@ -54,7 +55,8 @@ const NewUsuario = {
                 apellidos, 
                 correo_electronico, 
                 fecha_nacimiento,
-                telefono_contacto, 
+                telefono_contacto,
+                numero_doc,
                 lugar_registro_fk
             })
 

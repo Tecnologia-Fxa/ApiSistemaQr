@@ -76,6 +76,19 @@ UsuarioModel.init({
         }
     },
 
+    //Campo que almacenara el número de documento del usuario que se registra 
+    numero_doc:{
+        //Tipo de dato tecto ya que no se haran operaciones matematicas con este número
+        type: DataTypes.STRING(25),
+        //Campo obligatorio
+        allowNull:false,
+        //Campo unico
+        unique:{
+            //En caso de que se intente agregar un telefono que ya se encuentre registrado, el sistema devolvera el siguiente mensaje de error
+            msg: 'Número de documento ya registrado en el sistema'
+        }
+    },
+
     //Campo que almacena la foranea a la tabla que tiene los lugares de registro
     lugar_registro_fk:{
         type: DataTypes.INTEGER,

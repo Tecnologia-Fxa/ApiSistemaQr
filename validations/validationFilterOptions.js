@@ -4,7 +4,7 @@ const { validateEquals, validateParamQuery, validateNum } = require('./validatio
 
 const validationFilterOptions = [
     validateParamQuery('atribute'),
-    validateEquals('atribute', ['nombres', 'apellidos', 'correo_electronico', 'fecha_nacimiento', 'pais_telefono_fk', 'telefono_contacto', 'lugar_registro_fk', 'ciudad_fk']),
+    validateEquals('atribute', ['nombres', 'apellidos', 'correo_electronico', 'fecha_nacimiento', 'pais_telefono_fk', 'telefono_contacto', 'numero_doc', 'numero_doc', 'lugar_registro_fk', 'ciudad_fk']),
     validateParamQuery('value'),
     (req,res,next)=>validateResult(req,res,next)
 ]
