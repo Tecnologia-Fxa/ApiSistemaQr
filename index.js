@@ -32,13 +32,7 @@ const express = require('express');
 //Definimos una constante que va a tener todos los metodos relacionados a nuestro servidor (todo esto lo obtiene de la libreria express) 
 const app = express();
 
-const fs = require('fs')
 
-const https = require('https');
-const options = {
-    key: fs.readFileSync('./certs/server-key.pem'),
-    cert: fs.readFileSync('./certs/server-cert.pem'),
-};
 //Importamos nuestro documento de variables de entorno
 //Para esto usamos una libreria que nos facilita el trabajo llamada dotenv
 //El archivo donde se encuentran las variables de entorno es ".env"
@@ -72,20 +66,14 @@ app.use(express.urlencoded({ extended:false }));
 
 //El siguiente fragmento de codigo evita el error de cors
 //El error de cors se da porque los headers bloquean el flujo de la información por seguridad
-// Configurar cabeceras y cors
-app.use((_req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-    next();
-});
+const cors = require('cors')
+app.use(cors())
 
 //Acontinuacion la sección que redirecciona cuando la busqueda sea / 
 //Cuando se entra al sistema
 app.use('/api', require('./router/router'))
 
-https.createServer(options, app).listen(PORT, () =>{
+app.listen(PORT, () =>{
     console.log(`El proyecto a sido arrancado en http://localhost:${PORT}`);
 
     sequelize.sync( {force: false} ).then(()=>{
