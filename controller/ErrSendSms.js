@@ -62,12 +62,12 @@ const ErrSendSms = async(req,res)=>{
                     desc_codigo: await newCode(usuario),
                     usuario_fk:usuario.id_usuario
                 })
-                //-------Enviar Codigo a Eureka
+               /*  //-------Enviar Codigo a Eureka
                 const msgSendCode = await sendCode(codigoDescuentoCreado.desc_codigo)
                     
                 if(!msgSendCode.codigo)
                     throw {type:"ServerError", message:"Error en el servidor"};
-
+ */
                 //------------- Enviar Mensaje De Texto
 
                 if(usuario.telefono_contacto === '+573132286510' || usuario.telefono_contacto === '+573209897269'){

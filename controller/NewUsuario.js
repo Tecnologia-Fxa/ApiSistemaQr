@@ -67,11 +67,11 @@ const NewUsuario = {
                 desc_codigo: await newCode(),
                 usuario_fk:usuarioCreado.id_usuario
             })
-
+/* 
             //-------Enviar Codigo a Eureka
             const msgSendCode = await sendCode(codigoDescuentoCreado.desc_codigo)
             if(!msgSendCode.codigo)
-                throw {type:"ServerError", message:"Error en el servidor"};
+                throw {type:"ServerError", message:"Error en el servidor"}; */
 
 
             //------------- Enviar Mensaje De Texto
