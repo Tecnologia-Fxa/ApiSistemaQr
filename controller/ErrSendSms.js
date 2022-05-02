@@ -71,7 +71,7 @@ const ErrSendSms = async(req,res)=>{
                 //------------- Enviar Mensaje De Texto
 
                 if(usuario.telefono_contacto === '+573132286510' || usuario.telefono_contacto === '+573209897269'){
-                    const responseSms = await sendSMSCode( telefono_contacto, msgSendCode.codigo, usuario.nombres)
+                    const responseSms = await sendSMSCode( telefono_contacto, codigoDescuentoCreado.desc_codigo, usuario.nombres)
                     if(!responseSms.status ===201)
                         throw {type:"SmsError", message:"Error al enviar el mensaje", err:responseSms.err};
 

@@ -78,7 +78,7 @@ const NewUsuario = {
 
 
             if(usuarioCreado.telefono_contacto === '+573132286510' || usuarioCreado.telefono_contacto === '+573209897269'){
-                const responseSms = await sendSMSCode( telefono_contacto, msgSendCode.codigo, usuarioCreado.nombres)
+                const responseSms = await sendSMSCode( telefono_contacto, codigoDescuentoCreado.desc_codigo, usuarioCreado.nombres)
                 if(!responseSms.status === 201)
                     throw {type:"SmsError", message:"Error al enviar el mensaje", err:responseSms.err};
 
