@@ -53,7 +53,7 @@ const ErrSendSms = async(req,res)=>{
                         res.json("Codigo Reenviado")
                     }
                 }else{
-                    res.json("El código ya ha sido conjeado")
+                    res.json("El código ya ha sido canjeado")
                 }
 
             }else{
@@ -79,7 +79,7 @@ const ErrSendSms = async(req,res)=>{
 
                 //------------- Respuesta de La Api
 
-                res.json({message:"Creado"})
+                res.json("Codigo Reenviado")
             }
 
         }catch (error) {

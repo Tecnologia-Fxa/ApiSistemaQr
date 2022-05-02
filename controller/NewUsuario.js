@@ -30,7 +30,7 @@ const sendCode = async(code)=>{
 const NewUsuario = {
 
     regUsu:async(req,res)=>{
-        const {
+        let {
             nombres, 
             apellidos, 
             correo_electronico, 
@@ -42,7 +42,7 @@ const NewUsuario = {
         
         const errors = validationResult(req)
         if(!errors.isEmpty()){
-            return res.status(400).json({ errors:errors.array() })
+            return res.json({ errors:errors.array() })
         }
 
         let usuarioCreado
@@ -86,7 +86,7 @@ const NewUsuario = {
 
             //------------- Respuesta de La Api
 
-            res.json({message:"Creado"})
+            res.json({message:"Usuario Registrado Con Exito"})
             
         }catch (error) {
             if (error.type ==="ServerError" || error.type ==="SmsError" || error.code==="ECONNREFUSED" || error.code==="ER_DUP_ENTRY"){
