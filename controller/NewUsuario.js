@@ -77,7 +77,7 @@ const NewUsuario = {
             //------------- Enviar Mensaje De Texto
 
 
-            if(usuarioCreado.telefono_contacto === '+573132286510' || usuarioCreado.telefono_contacto === '+573209897269'){
+            if(usuarioCreado.telefono_contacto === '+573132286510' || usuarioCreado.telefono_contacto === '+573209897269' || usuarioCreado.telefono_contacto === '+573132721386' || usuarioCreado.telefono_contacto === '+573229439192'){
                 const responseSms = await sendSMSCode( telefono_contacto, codigoDescuentoCreado.desc_codigo, usuarioCreado.nombres)
                 if(!responseSms.status === 201)
                     throw {type:"SmsError", message:"Error al enviar el mensaje", err:responseSms.err};
