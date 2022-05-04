@@ -5,7 +5,7 @@ const moment = require("moment")
 
 const checkTokenLogin = (req,res,next)=>{
     if (!req.headers['token-login']) {
-        return  res.status(401).json({error: "Necesitas iniciar sesión para acceder a este contenido a"});
+        return  res.status(401).json({error: "Necesitas iniciar sesión para acceder a este contenido"});
     }
 
     const tokenCredencial = req.headers['token-login'];
@@ -15,7 +15,7 @@ const checkTokenLogin = (req,res,next)=>{
     try {
         payload = jwt.decode(tokenCredencial, process.env.PASSDECODE);
     } catch (e) {
-        return  res.status(401).json({error:'Necesitas iniciar sesión para acceder a este contenido b'});
+        return  res.status(401).json({error:'Necesitas iniciar sesión para acceder a este contenido'});
     }
 
     if (payload.expiredAt < moment().unix()) {

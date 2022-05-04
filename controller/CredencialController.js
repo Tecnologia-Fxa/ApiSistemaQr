@@ -33,9 +33,9 @@ const CredencialController = {
             if(log)
                 res.json(tokenAcceso(user.nombre_usuario))
             else 
-                res.status(401).json("Error usuario y/o contraseña incorrectos")     
+                res.status(400).json("Error usuario y/o contraseña incorrectos")     
         }else
-            res.status(401).json("Error usuario y/o contraseña incorrectos")
+            res.status(400).json("Error usuario y/o contraseña incorrectos")
     },
 
     createCredencials: async(_req,res)=>{
