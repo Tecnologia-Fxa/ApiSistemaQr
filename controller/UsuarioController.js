@@ -107,7 +107,7 @@ const UsuarioController = {
         const { id_usuario } = req.query
         const { 
         nombres,
-        apellido,
+        apellidos,
         correo_electronico,
         fecha_nacimiento,
         telefono_contacto,
