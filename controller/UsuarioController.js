@@ -1,7 +1,7 @@
 const LugarRegistroModel = require("../database/models/LugarRegistroModel")
 const UsuarioModel = require("../database/models/UsuarioModel")
 const { getPagination, getPagingData } = require("../helpers/paginationHelper")
-const { Op } = require("sequelize")
+const { Op, DATE } = require("sequelize")
 const CodigoDescuentoModel = require("../database/models/CodigoDescuentoModel")
 
 
@@ -87,7 +87,9 @@ const UsuarioController = {
     },
 
     filterByDateRange: async(req,res) =>{
-        const { fechaInicio, fechaFin, campo, page, size} = req.query
+        let { fechaInicio, fechaFin, campo, page, size} = req.query
+        fechaInicio = new DATE(fechaInicio)
+        fechaFin = new DATE(fechaFin)
         const { limit, offset } = getPagination(page, size);
 
         const usuarios = await UsuarioModel.findAndCountAll({
