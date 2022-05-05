@@ -86,6 +86,26 @@ const UsuarioController = {
         res.json(respuesta)
     },
 
+    filterByDateRange: async(req,res) =>{
+        const { fechaInicio, fechaFin, campo, page, size} = req.query
+        const { limit, offset } = getPagination(page, size);
+
+        const usuarios = await UsuarioModel.findAndCountAll({
+            attributes:["id_usuario", "nombres", "apellidos", "correo_electronico", "fecha_nacimiento", "telefono_contacto", "numero_doc", "createdAt", "updatedAt"],
+            include:[
+                {model:LugarRegistroModel, attributes:["id_lugar_registro", "nombre_lugar_registro"]},
+                {model:CodigoDescuentoModel, attributes:["estado"]}
+            ],
+            where:{
+                [campo]:{ [Op.between]:[fechaInicio,fechaFin] }
+            },
+            limit,
+            offset,
+        })
+        const respuesta = getPagingData(usuarios, page, limit)
+        res.json(respuesta)
+    },
+
     update: async(req,res) =>{
         const { id_usuario } = req.query
         const { 
