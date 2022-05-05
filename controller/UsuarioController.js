@@ -88,8 +88,7 @@ const UsuarioController = {
 
     filterByDateRange: async(req,res) =>{
         let { fechaInicio, fechaFin, campo, page, size} = req.query
-        fechaInicio = new DATE(fechaInicio)
-        fechaFin = new DATE(fechaFin)
+
         const { limit, offset } = getPagination(page, size);
 
         const usuarios = await UsuarioModel.findAndCountAll({
