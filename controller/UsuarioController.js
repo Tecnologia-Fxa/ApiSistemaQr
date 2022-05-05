@@ -119,7 +119,7 @@ const UsuarioController = {
             await UsuarioModel.update(
                 {
                 nombres,
-                apellido,
+                apellidos,
                 correo_electronico,
                 fecha_nacimiento,
                 telefono_contacto,
