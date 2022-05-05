@@ -1,6 +1,6 @@
 const { validateResult } = require('../helpers/validationHelper')
 
-const { validateEquals, validateParamQuery, validateNum, validateDate } = require('./validations')
+const { validateEquals, validateParamQuery, validateNum } = require('./validations')
 
 const validationFilterOptions = [
     validateParamQuery('atribute'),
@@ -11,9 +11,7 @@ const validationFilterOptions = [
 
 const validationDateOptions =[
     validateParamQuery('fechaInicio'),
-    validateDate('fechaInicio'),
     validateParamQuery('fechaFin'),
-    validateDate('fechaFin'),
     validateParamQuery('campo'),
     validateEquals('campo', ['fecha_nacimiento', 'createdAt']),
     (req,res,next)=>validateResult(req,res,next)
