@@ -26,7 +26,7 @@ const LugarRegistroController = {
             await LugarRegistroModel.create({nombre_lugar_registro})
             res.json("Creado Con Exito")
         } catch (error) {
-            res.json(error.message)
+            res.status(400).json(error.message)
         }
     },
 
