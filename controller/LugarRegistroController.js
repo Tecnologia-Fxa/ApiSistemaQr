@@ -38,7 +38,6 @@ const LugarRegistroController = {
             await LugarRegistroModel.update({nombre_lugar_registro},{where:{id_lugar_registro}})
             res.json("Actualizado Con Exito")
         } catch (error) {
-            console.log("prueba")
             res.status(400).json(error.message)
         }
     },
