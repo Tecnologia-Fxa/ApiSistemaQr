@@ -8,7 +8,7 @@ const LugarRegistroController = {
     },
 
     getAllActive:async(_req,res)=>{
-        const lugares = await LugarRegistroModel.findAll({where:{estado:true}})
+        const lugares = await LugarRegistroModel.findAll({where:{estado:true},order: [['nombre_lugar_registro','ASC']]})
         res.json(lugares)
     },
 
