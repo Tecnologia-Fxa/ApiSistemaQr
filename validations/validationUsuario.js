@@ -13,8 +13,8 @@ const validationUsuario = [
     validateEmail('correo_electronico'),
     validateLength('correo_electronico', {min:6, max:75}),
     validateParam('fecha_nacimiento'),
-    validateParam('telefono_contacto'),
-    validatePhone('telefono_contacto'),
+    validateParam('telefono_contacto'),/* 
+    validatePhone('telefono_contacto'), */
     validateLength('telefono_contacto', {min:4, max:30}),
     validateParam('numero_doc'),
     validateLength('numero_doc', {min:4, max:25}),

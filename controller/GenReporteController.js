@@ -32,7 +32,7 @@ const genReporte = async(req,res)=>{
             }
             el.tipo = parseInt(el.tipo)
             if(el.tipo===1){
-                condicion += `${el.campo} = '${el.valor}'`
+                condicion += `${el.campo} like '%${el.valor}%'`
             }else if(el.tipo===2){
                 condicion += `${el.campo}_fk = '${el.valor}'`
             }else if (el.tipo===3){

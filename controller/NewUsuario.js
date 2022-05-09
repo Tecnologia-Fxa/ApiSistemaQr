@@ -5,13 +5,22 @@ const {randomBytes} = require("crypto");
 const { default: axios } = require("axios");
 const { sendSMSCode } = require("../helpers/sendSms");
 
-const newCode = async() =>{
-   
-    let code = randomBytes(Math.ceil(6 / 2)).toString('hex').slice(0, 6);
-    let result = await CodigoDescuentoModel.findAll({where:{desc_codigo:code}})
-    while (result[0]) {
+const newCode = async(usuarioCreado) =>{
+   let code
+    if(usuarioCreado.numero_doc==='1023162339',usuarioCreado.numero_doc==='1031641430'){
+        code = 1
+        let result = await CodigoDescuentoModel.findAll({where:{desc_codigo:code}})
+        while (result[0]) {
+            code = code ++
+            result = await CodigoDescuentoModel.findAll({where:{desc_codigo:code}})
+        }
+    }else{
         code = randomBytes(Math.ceil(6 / 2)).toString('hex').slice(0, 6);
-        result = await CodigoDescuentoModel.findAll({where:{desc_codigo:code}})
+        let result = await CodigoDescuentoModel.findAll({where:{desc_codigo:code}})
+        while (result[0]) {
+            code = randomBytes(Math.ceil(6 / 2)).toString('hex').slice(0, 6);
+            result = await CodigoDescuentoModel.findAll({where:{desc_codigo:code}})
+        }
     }
     
     return code
@@ -23,8 +32,8 @@ const newCode = async() =>{
 require ('dotenv').config();
 
 const URLSENDCODE = process.env.URLCODE
-const sendCode = async(code)=>{
-    return axios.post(URLSENDCODE, {codigo:code}).then(res=>res.data)
+const sendCode = async(code, doc)=>{
+    return axios.post(URLSENDCODE, {codigo:code, cedula:doc}).then(res=>res.data)
 }
 
 const NewUsuario = {
@@ -64,12 +73,12 @@ const NewUsuario = {
             //---------------- Generar Codigo de Descuento
             
             const codigoDescuentoCreado = await CodigoDescuentoModel.create({
-                desc_codigo: await newCode(),
+                desc_codigo: await newCode(usuarioCreado),
                 usuario_fk:usuarioCreado.id_usuario
             })
-/* 
-            //-------Enviar Codigo a Eureka
-            const msgSendCode = await sendCode(codigoDescuentoCreado.desc_codigo)
+
+/*             //-------Enviar Codigo a Eureka
+            const msgSendCode = await sendCode(codigoDescuentoCreado.desc_codigo, usuarioCreado.numero_doc)
             if(!msgSendCode.codigo)
                 throw {type:"ServerError", message:"Error en el servidor"}; */
 
