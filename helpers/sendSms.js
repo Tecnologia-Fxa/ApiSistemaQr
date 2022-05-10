@@ -12,6 +12,7 @@ const sendSMSCode = async (numeroTelefono, codigoDescuento, nombre) => {
         return {status:201,data,message:"Enviado Con Exito"}
 
     } catch (err) {
+        console.log(err)
         return {status:200,err}
     }
 }
