@@ -46,12 +46,12 @@ const ErrSendSms = async(req,res)=>{
                 
                 if(!usuario.codigo_descuento.estado){
                     //------------- Enviar Mensaje De Texto
-                    if(usuario.telefono_contacto === '+573132286510' || usuario.telefono_contacto === '+573209897269'){
-                        const responseSms = await sendSMSCode( telefono_contacto, usuario.codigo_descuento.desc_codigo, usuario.nombres)
-                        if(!responseSms.status ===201)
-                            throw {type:"SmsError", message:"Error al enviar el mensaje", err:responseSms.err};
-                        res.json("Codigo Reenviado")
-                    }
+                    
+                    const responseSms = await sendSMSCode( telefono_contacto, usuario.codigo_descuento.desc_codigo, usuario.nombres)
+                    if(!responseSms.status ===201)
+                        throw {type:"SmsError", message:"Error al enviar el mensaje", err:responseSms.err};
+                    res.json("Codigo Reenviado")
+                    
                 }else{
                     res.json("El código ya ha sido canjeado")
                 }
