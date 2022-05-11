@@ -20,7 +20,7 @@ const UsuarioController = {
                 {model:LugarRegistroModel, attributes:["id_lugar_registro", "nombre_lugar_registro"]},
                 {model:CodigoDescuentoModel, attributes:["estado"]}
             ],
-            order:['createdAt', 'DESC']
+            order:[['createdAt', 'DESC']]
         })
 
         const respuesta = getPagingData(usuarios, page, limit)
