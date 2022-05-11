@@ -38,7 +38,8 @@ const UsuarioController = {
             include:[
                 {model:LugarRegistroModel, attributes:["id_lugar_registro", "nombre_lugar_registro"]},
                 {model:CodigoDescuentoModel, attributes:["estado"],where:{estado:estado_code}}
-            ]
+            ],
+            order:[['createdAt', 'DESC']]
         })
 
         const respuesta = getPagingData(usuarios, page, limit)
@@ -76,7 +77,8 @@ const UsuarioController = {
             ],
             where:{
                 [atribute]:{[getMethod(method)]:value}
-            }
+            },
+            order:[['createdAt', 'DESC']]
         })
 
         const respuesta = getPagingData(usuarios, page, limit)
@@ -99,6 +101,7 @@ const UsuarioController = {
             },
             limit,
             offset,
+            order:[['createdAt', 'DESC']]
         })
         const respuesta = getPagingData(usuarios, page, limit)
         res.json(respuesta)
