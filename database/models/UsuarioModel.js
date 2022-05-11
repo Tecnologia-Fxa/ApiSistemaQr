@@ -93,7 +93,10 @@ UsuarioModel.init({
     lugar_registro_fk:{
         type: DataTypes.INTEGER,
         allowNull:false
-    }
+    },
+    
+    createdAt: { type: DataTypes.DATEONLY },
+    updatedAt: { type: DataTypes.DATEONLY }
 
 },{
     //Importamos la conexion a la base de datos
