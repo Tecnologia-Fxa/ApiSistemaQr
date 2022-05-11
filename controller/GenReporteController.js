@@ -17,9 +17,9 @@ const genReporte = async(req,res)=>{
             inners += ` inner join ${el.campo} on id_${el.campo} = ${el.campo}_fk`
         }else{
             campo += ` cod.estado Estado_Codigo,`
-            inners += ` inner join codigo_descuento cod on cod.usuario_fk = id_usuario`
         }
     });
+    inners += ` inner join codigo_descuento cod on cod.usuario_fk = id_usuario`
 
     condiciones = [...condiciones, ...condiciones_num]
 
