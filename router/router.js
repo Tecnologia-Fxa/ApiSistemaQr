@@ -14,4 +14,6 @@ router.use('/lugar-registro', require('./routes/LugarRegistroRouter'))
 
 router.use('/gen-reporte', checkTokenLogin, require('./routes/GenReporteRouter'))
 
+router.use('/data-dash', checkTokenLogin, require('./routes/DashBoardDataRouter'))
+
 module.exports = router
