@@ -44,7 +44,7 @@ const genReporte = async(req,res)=>{
     }
 
     campo =campo.substring(0, campo.length - 1);
-    const sql = await sequelize.query(`select${campo} from usuario ${inners} ${condicion}`) 
+    const sql = await sequelize.query(`select${campo} from usuario ${inners} ${condicion} order by createdAT DESC`) 
     res.json(sql[0])
 }
 
