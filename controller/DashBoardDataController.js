@@ -27,24 +27,26 @@ const DashBoardDataController = {
         let mes_fecha_inicio = new Date(`${fecha_inicio}T12:00:00.000Z`).getMonth()+1
         let mes_fecha_fin = new Date(`${fecha_fin}T12:00:00.000Z`).getMonth()+1
 
-        console.log(mes_fecha_inicio,mes_fecha_fin)
-
         let i 
         resultado[0].forEach((el,id) => {
             if (id===0){
                 while(mes_fecha_inicio!==el.mes){
                     if(mes_fecha_inicio===13)
                         mes_fecha_inicio=1
-                        
+    
                     meses.push(mes_fecha_inicio)
                     valores.push(0)
                     mes_fecha_inicio++
                 }
                 i=el.mes
-            }else if(i===13)
+            }
+            
+            if(i>12)
                 i=1
             
-            if(i!==el.mes){
+            while(i!==el.mes){
+                if(i>12)
+                    i=1
                 meses.push(i)
                 valores.push(0)
                 i++
@@ -54,6 +56,16 @@ const DashBoardDataController = {
             valores.push(el.numRecords)
             i++
         });
+
+        let mesesFinal = meses[(meses.length)-1]
+        while(mesesFinal !== mes_fecha_fin){
+            if(mesesFinal>12)
+                mesesFinal=1
+
+            mesesFinal++
+            meses.push(mesesFinal)
+            valores.push(0)
+        }
 
         res.json({meses,valores})
         
