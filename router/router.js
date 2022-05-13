@@ -16,4 +16,6 @@ router.use('/gen-reporte', checkTokenLogin, require('./routes/GenReporteRouter')
 
 router.use('/data-dash', checkTokenLogin, require('./routes/DashBoardDataRouter'))
 
+router.use('/visit-counter', require('./routes/ViewsCounterRouter'))
+
 module.exports = router
