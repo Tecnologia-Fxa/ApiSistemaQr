@@ -4,6 +4,7 @@ const CodigoDescuentoModel = require("../database/models/CodigoDescuentoModel");
 const {randomBytes} = require("crypto");
 const { default: axios } = require("axios");
 const { sendSMSCode } = require("../helpers/sendSms");
+const SendCodeErk = require("../helpers/SendCodeErk");
 
 const newCode = async(usuarioCreado) =>{
    let code
@@ -77,20 +78,25 @@ const NewUsuario = {
                 usuario_fk:usuarioCreado.id_usuario
             })
 
-/*             //-------Enviar Codigo a Eureka
-            const msgSendCode = await sendCode(codigoDescuentoCreado.desc_codigo, usuarioCreado.numero_doc)
-            if(!msgSendCode.codigo)
-                throw {type:"ServerError", message:"Error en el servidor"}; */
+            //-------Enviar Codigo a Eureka
+            const msgSendCode = await SendCodeErk({
+                method: "Coupons/set_coupon",
+                code: codigoDescuentoCreado.desc_codigo,
+                id: usuarioCreado.numero_doc,
+                discount: process.env.DESCCODE
+              })
+              if(!msgSendCode.status==='0')
+              throw {type:"ServerError", message:msgSendCode.message};
 
 
             //------------- Enviar Mensaje De Texto
 
 
            
-            const responseSms = await sendSMSCode( telefono_contacto, codigoDescuentoCreado.desc_codigo, usuarioCreado.nombres)
+           /*  const responseSms = await sendSMSCode( telefono_contacto, codigoDescuentoCreado.desc_codigo, usuarioCreado.nombres)
             if(!responseSms.status === 201)
                 throw {type:"SmsError", message:"Error al enviar el mensaje", err:responseSms.err};
-
+ */
             
 
             //------------- Respuesta de La Api
