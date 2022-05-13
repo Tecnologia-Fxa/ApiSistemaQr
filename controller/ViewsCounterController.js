@@ -12,7 +12,7 @@ const ViewsCounterController = {
     getPageVisits:async(req,res)=>{
         const {page} = req.query
         const pageVisits = await ViewsCounterModel.findAll({where:{access_page:page}})
-        res.json(pageVisits)
+        res.json(pageVisits[0])
     }
 
 }
