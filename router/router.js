@@ -18,6 +18,6 @@ router.use('/data-dash', checkTokenLogin, require('./routes/DashBoardDataRouter'
 
 router.use('/visit-counter', require('./routes/ViewsCounterRouter'))
 
-router.use('/birthday', require('./routes/CumpleañosRouter'))
+router.use('/birthday', checkTokenLogin, require('./routes/CumpleañosRouter'))
 
 module.exports = router
