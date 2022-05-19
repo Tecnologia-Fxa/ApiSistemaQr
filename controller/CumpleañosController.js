@@ -13,6 +13,12 @@ const CumpleañosController = {
         const { fecha } = req.query
         const data = await sequelize.query(`select id_usuario, nombres, apellidos, nombre_lugar_registro, telefono_contacto, fecha_nacimiento, day(fecha_nacimiento) dia from usuario left outer join lugar_registro on lugar_registro_fk = id_lugar_registro where month(fecha_nacimiento) = month('${fecha}') order by dia`)
         res.json(data[0])
+    },
+
+    getByRange:async(req,res)=>{
+        const { fecha_inicio, fecha_fin } = req.query
+        const data = await sequelize.query(`select id_usuario, nombres, apellidos, nombre_lugar_registro, telefono_contacto, fecha_nacimiento, month(fecha_nacimiento) mes,day(fecha_nacimiento) dia from usuario left outer join lugar_registro on lugar_registro_fk = id_lugar_registro where (DATE_FORMAT(fecha_nacimiento, '%m-%d') between DATE_FORMAT('${fecha_inicio}', '%m-%d') and DATE_FORMAT('${fecha_fin}', '%m-%d')) order by mes, dia`)
+        res.json(data[0])
     }
 
 }
