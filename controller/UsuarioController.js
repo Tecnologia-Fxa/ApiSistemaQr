@@ -36,25 +36,6 @@ const UsuarioController = {
         res.json(respuesta)
     },
 
-    getbyStateCod:async(req,res)=>{
-        const { page, size, estado_code} = req.query;
-        const { limit, offset } = getPagination(page, size);
-
-        const usuarios = await UsuarioModel.findAndCountAll({
-            limit,
-            offset,
-            include:[
-                {model:LugarRegistroModel, attributes:["id_lugar_registro", "nombre_lugar_registro"]},
-                {model:CodigoDescuentoModel, attributes:["estado"],where:{estado:estado_code}}
-            ],
-            order:[['createdAt', 'DESC']]
-        })
-
-        const respuesta = getPagingData(usuarios, page, limit)
-
-        res.json(respuesta)
-    },
-
     getFiltered: async(req,res) =>{
         const getMethod = (method)=>{
             switch (method) {
