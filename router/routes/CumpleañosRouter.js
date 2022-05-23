@@ -10,4 +10,6 @@ router.get('/get-by-range', CumpleañosController.getByRange)
 
 router.get('/get-range-filter-age', CumpleañosController.getByRangeFilterByAge)
 
+router.post('/get-range-filter-lugar', CumpleañosController.getByRangeFilterByLugar)
+
 module.exports =  router

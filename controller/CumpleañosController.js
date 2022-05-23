@@ -25,6 +25,23 @@ const CumpleañosController = {
         const { fecha_inicio, fecha_fin, edad_inicio, edad_fin } = req.query
         const data = await sequelize.query(`select id_usuario, nombres, apellidos, nombre_lugar_registro, telefono_contacto, fecha_nacimiento, month(fecha_nacimiento) mes,day(fecha_nacimiento) dia from usuario left outer join lugar_registro on lugar_registro_fk = id_lugar_registro where ((DATE_FORMAT(fecha_nacimiento, '%m-%d') between DATE_FORMAT('${fecha_inicio}', '%m-%d') and DATE_FORMAT('${fecha_fin}', '%m-%d'))) and ((year('2022-05-01')-year(fecha_nacimiento)) >= ${edad_inicio} and (year('2022-05-01')-year(fecha_nacimiento)) <= ${edad_fin}) order by mes, dia`)
         res.json(data[0])
+    },
+
+    getByRangeFilterByLugar:async(req, res)=>{
+        const { fecha_inicio, fecha_fin} = req.query
+        const { lugares } = req.body
+        console.log(lugares)
+        let lugaresQuery = "("
+
+        lugares.forEach(el => {
+            lugaresQuery += `'${el.nombre_lugar}',`
+        });
+        lugaresQuery = lugaresQuery.substring(0, lugaresQuery.length - 1)
+        lugaresQuery += ")"
+
+        const data = await sequelize.query(`select id_usuario, nombres, apellidos, nombre_lugar_registro, telefono_contacto, fecha_nacimiento, month(fecha_nacimiento) mes,day(fecha_nacimiento) dia from usuario left outer join lugar_registro on lugar_registro_fk = id_lugar_registro where (DATE_FORMAT(fecha_nacimiento, '%m-%d') between DATE_FORMAT('${fecha_inicio}', '%m-%d') and DATE_FORMAT('${fecha_fin}', '%m-%d'))  and (nombre_lugar_registro in ${lugaresQuery} ) order by mes, dia;`)
+        
+        res.json(data[0])
     }
 
 }
