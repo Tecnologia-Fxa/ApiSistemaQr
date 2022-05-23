@@ -10,15 +10,23 @@ const UsuarioController = {
 
     getAll: async(req,res) =>{
 
-        const { page, size} = req.query;
+        let { page, size, state_cod} = req.query;
         const { limit, offset } = getPagination(page, size);
+
+        if(state_cod!=='0' && state_cod!=='1'){
+            state_cod=[0,1]
+        }
 
         const usuarios = await UsuarioModel.findAndCountAll({
             limit,
             offset,
             include:[
                 {model:LugarRegistroModel, attributes:["id_lugar_registro", "nombre_lugar_registro"]},
-                {model:CodigoDescuentoModel, attributes:["estado"]}
+                {
+                    model:CodigoDescuentoModel, 
+                    attributes:["estado"],
+                    where:{ estado: state_cod}
+                }
             ],
             order:[['createdAt', 'DESC']]
         })
@@ -64,16 +72,21 @@ const UsuarioController = {
             }
         }
 
-        const { atribute, value, method, page, size } = req.query;
+        let { atribute, value, method, page, size, state_cod } = req.query;
 
         const { limit, offset } = getPagination(page, size);
+
+
+        if(state_cod!=='0' && state_cod!=='1'){
+            state_cod=[0,1]
+        }
 
         const usuarios = await UsuarioModel.findAndCountAll({
             limit,
             offset,
             include:[
                 {model:LugarRegistroModel, attributes:["id_lugar_registro", "nombre_lugar_registro"]},
-                {model:CodigoDescuentoModel, attributes:["estado"]}
+                {model:CodigoDescuentoModel, attributes:["estado"], where:{ estado: state_cod}}
             ],
             where:{
                 [atribute]:{[getMethod(method)]:value}
