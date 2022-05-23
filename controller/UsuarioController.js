@@ -81,14 +81,18 @@ const UsuarioController = {
     },
 
     filterByDateRange: async(req,res) =>{
-        let { fechaInicio, fechaFin, campo, page, size} = req.query
+        let { fechaInicio, fechaFin, campo, page, size, state_cod} = req.query
 
         const { limit, offset } = getPagination(page, size);
+
+        if(state_cod!=='0' && state_cod!=='1'){
+            state_cod=[0,1]
+        }
 
         const usuarios = await UsuarioModel.findAndCountAll({
             include:[
                 {model:LugarRegistroModel, attributes:["id_lugar_registro", "nombre_lugar_registro"]},
-                {model:CodigoDescuentoModel, attributes:["estado"]}
+                {model:CodigoDescuentoModel, attributes:["estado"], where:{ estado: state_cod}}
             ],
             where:{
                 [campo]:{ [Op.between]:[fechaInicio,fechaFin] }
