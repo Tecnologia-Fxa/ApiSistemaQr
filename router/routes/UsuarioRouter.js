@@ -11,8 +11,6 @@ router.get('/filtered-users', validationFilterOptions, validationPagination, Usu
 
 router.get('/filter-by-date-range', validationDateOptions, validationPagination, UsuarioController.filterByDateRange)
 
-router.get('/getby-state-code', validationStatusCode, UsuarioController.getbyStateCod)
-
 router.put('/update', validationUsuario, validateId, UsuarioController.update)
 
 router.delete('/delete', validateId, UsuarioController.delete)
