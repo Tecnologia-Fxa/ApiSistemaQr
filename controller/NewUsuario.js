@@ -69,7 +69,7 @@ const NewUsuario = {
             })
 
             //-------Enviar Codigo a Eureka
-            const msgSendCode = await SendCodeErk({
+            /* const msgSendCode = await SendCodeErk({
                 method: "Coupons/set_coupon",
                 code: codigoDescuentoCreado.desc_codigo,
                 id: usuarioCreado.numero_doc,
@@ -86,7 +86,7 @@ const NewUsuario = {
             const responseSms = await sendSMSCode( telefono_contacto, codigoDescuentoCreado.desc_codigo, usuarioCreado.nombres)
             if(!responseSms.status === 201)
                 throw {type:"SmsError", message:"Error al enviar el mensaje", err:responseSms.err};
-
+ */
             
 
             //------------- Respuesta de La Api
