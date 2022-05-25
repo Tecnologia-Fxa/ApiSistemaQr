@@ -7,21 +7,11 @@ const { sendSMSCode } = require("../helpers/sendSms");
 const SendCodeErk = require("../helpers/SendCodeErk");
 
 const newCode = async(usuarioCreado) =>{
-   let code
-    if(usuarioCreado.numero_doc==='1023162339',usuarioCreado.numero_doc==='1031641430'){
-        code = 1
-        let result = await CodigoDescuentoModel.findAll({where:{desc_codigo:code}})
-        while (result[0]) {
-            code = code ++
-            result = await CodigoDescuentoModel.findAll({where:{desc_codigo:code}})
-        }
-    }else{
+   let code = randomBytes(Math.ceil(6 / 2)).toString('hex').slice(0, 6);
+    let result = await CodigoDescuentoModel.findAll({where:{desc_codigo:code}})
+    while (result[0]) {
         code = randomBytes(Math.ceil(6 / 2)).toString('hex').slice(0, 6);
-        let result = await CodigoDescuentoModel.findAll({where:{desc_codigo:code}})
-        while (result[0]) {
-            code = randomBytes(Math.ceil(6 / 2)).toString('hex').slice(0, 6);
-            result = await CodigoDescuentoModel.findAll({where:{desc_codigo:code}})
-        }
+        result = await CodigoDescuentoModel.findAll({where:{desc_codigo:code}})
     }
     
     return code
