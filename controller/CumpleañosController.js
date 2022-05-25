@@ -1,5 +1,4 @@
 const sequelize = require("../database/ConfigBD")
-const UsuarioModel = require("../database/models/UsuarioModel")
 
 const CumpleañosController = {
 
