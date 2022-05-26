@@ -7,7 +7,13 @@ const DashBoardDataController = {
     getDataCartas: async(_req,res)=>{
         const cantidadTotal = await UsuarioModel.count()
         const cantidadCanjeado = await UsuarioModel.count({include:{model:CodigoDescuentoModel,where:{estado:1}}})
-        res.json({cantidadTotal,cantidadCanjeado})
+        
+        const cantidadCumpleañerosMes = await sequelize.query('select count(fecha_nacimiento)total from usuario where month(fecha_nacimiento) = month(now())')
+        const cantidadCumpleañerosDia = await sequelize.query('select count(fecha_nacimiento)total from usuario where month(fecha_nacimiento) = month(now()) and day(fecha_nacimiento) = day(now())')
+        
+        const cantidadCumpleañeros = {mensual:cantidadCumpleañerosMes[0][0].total,diario:cantidadCumpleañerosDia[0][0].total}
+
+        res.json({cantidadTotal,cantidadCanjeado, cantidadCumpleañeros})
     },
 
     getDataConteoMensualLugarRegistro:async(req,res)=>{
