@@ -18,6 +18,7 @@ const UsuarioController = {
         }
 
         const usuarios = await UsuarioModel.findAndCountAll({
+            order:[['createdAt', 'DESC']],
             limit,
             offset,
             include:[
@@ -28,7 +29,6 @@ const UsuarioController = {
                     where:{ estado: state_cod}
                 }
             ],
-            order:[['createdAt', 'DESC']]
         })
 
         const respuesta = getPagingData(usuarios, page, limit)

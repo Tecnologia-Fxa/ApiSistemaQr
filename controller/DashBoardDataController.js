@@ -73,6 +73,11 @@ const DashBoardDataController = {
             res.json(err)
         }
 
+    },
+
+    getDataAge: async(_req,res)=>{
+        const dataUsuarios = await UsuarioModel.findAll({attributes:["fecha_nacimiento"]})
+        res.json(dataUsuarios)
     }
 
 }
