@@ -2,6 +2,7 @@ const router = require("express").Router();
 
 const CredencialController = require("../../controller/CredencialController");
 const checkTokenLogin = require("../../helpers/validacionLogin");
+const { checkAdmin } = require("../../helpers/validationUser");
 const { validationCredencial, validationChangePass } = require("../../validations/validationCredencial");
 
 router.post('/login', validationCredencial, CredencialController.logIn)

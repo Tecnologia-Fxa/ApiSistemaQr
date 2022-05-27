@@ -2,6 +2,7 @@ const router = require("express").Router();
 
 const LugarRegistroController = require("../../controller/LugarRegistroController");
 const checkTokenLogin = require("../../helpers/validacionLogin");
+const { checkAdmin } = require("../../helpers/validationUser");
 const { validationCreate, validateId } = require("../../validations/validationLugarRegistro");
 
 router.get('/', checkTokenLogin, LugarRegistroController.getAll)
