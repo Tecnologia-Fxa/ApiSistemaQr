@@ -10,12 +10,12 @@ router.get('/state-true', LugarRegistroController.getAllActive)
 
 router.get('/find', checkTokenLogin, validateId, LugarRegistroController.getOne)
 
-router.post('/create',  checkTokenLogin, validationCreate, LugarRegistroController.create)
+router.post('/create',  checkTokenLogin, checkAdmin, validationCreate, LugarRegistroController.create)
 
-router.put('/update',  checkTokenLogin, validationCreate, validateId, LugarRegistroController.update)
+router.put('/update',  checkTokenLogin, checkAdmin, validationCreate, validateId, LugarRegistroController.update)
 
-router.put('/disable',  checkTokenLogin, validateId, LugarRegistroController.disable)
+router.put('/disable',  checkTokenLogin, checkAdmin, validateId, LugarRegistroController.disable)
 
-router.put('/enable',  checkTokenLogin, validateId, LugarRegistroController.enable)
+router.put('/enable',  checkTokenLogin, checkAdmin, validateId, LugarRegistroController.enable)
 
 module.exports =  router

@@ -8,6 +8,6 @@ router.post('/login', validationCredencial, CredencialController.logIn)
 
 router.get('/create-credentials', CredencialController.createCredencials)
 
-router.put('/change-pass', checkTokenLogin, validationChangePass, CredencialController.changePassCredential)
+router.put('/change-pass', checkTokenLogin, checkAdmin, validationChangePass, CredencialController.changePassCredential)
 
 module.exports =  router
