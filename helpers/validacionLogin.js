@@ -21,6 +21,8 @@ const checkTokenLogin = (req,res,next)=>{
     if (payload.expiredAt < moment().unix()) {
         return  res.status(408).json({error:`El tiempo limite de uso en la pagina a caducado, por favor vuelva a iniciar sesión`});
     }
+    
+    req.rol = payload.rol
 
     next();
 }
