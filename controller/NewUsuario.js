@@ -14,7 +14,7 @@ const newCode = async(usuarioCreado) =>{
         result = await CodigoDescuentoModel.findAll({where:{desc_codigo:code}})
     }
     
-    return "Prueba1"
+    return code
 }
 
 //Importamos nuestro documento de variables de entorno
