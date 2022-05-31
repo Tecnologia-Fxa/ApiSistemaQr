@@ -97,7 +97,7 @@ const NewUsuario = {
             if (error.type ==="ServerError" || error.type ==="SmsError" || error.code==="ECONNREFUSED" || error.code==="ER_DUP_ENTRY"){
                 await UsuarioModel.destroy({where:{id_usuario:usuarioCreado.id_usuario}})
                 res.json({error:error.message})
-            }else if(error.type ==="ValidationError"){
+            }else if(error.message ==="Validation error"){
                 res.json({message:"Ocurrio un error, Porfavor reenvia el mensaje"})
             }else
                 res.json({error:error.message}) 
