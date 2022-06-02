@@ -7,6 +7,10 @@
 const CodigoDescuentoModel = require("./models/CodigoDescuentoModel");
 const LugarRegistroModel = require("./models/LugarRegistroModel");
 const UsuarioModel = require("./models/UsuarioModel");
+const IncentivosModel = require("./models/IncentivosModel");
+const CredencialModel = require("./models/CredencialModel");
+const CampañaModel = require("./models/CampañaModel");
+const PlantillaModel = require("./models/PlantillaModel");
 //TODO:BORRAR
 //!BORRAR
 require("./models/CredencialModel");
@@ -39,8 +43,15 @@ LugarRegistroModel.hasMany(UsuarioModel, { as:'usuario', foreignKey:'lugar_regis
 //Creamos la relación en la tabla de usuario estableciendo como se llamara la foranea de la relación lugar_registro_fk
 UsuarioModel.belongsTo(LugarRegistroModel, { foreignKey:'lugar_registro_fk' })
 
+//Relaciones 1 a 0..* (uno a 0 o muchos)
+//?1 a 0..* significa que un registro puede tener asociados ninguno o muchos registros de otra tabla
+//*Ejemplo: 1 usuario puede tener de 0 a mucahs fotos en su galeria, pero 1 foto solo pertenece a un usuario
 
+LugarRegistroModel.hasMany(IncentivosModel, { as:'incentivos', foreignKey:'lugar_registro_fk'})
+IncentivosModel.belongsTo(LugarRegistroModel, { foreignKey:'lugar_registro_fk' })
 
+CredencialModel.hasMany(CampañaModel, { as:'campaña', foreignKey:'credencial_fk'})
+CampañaModel.belongsTo(CredencialModel, { foreignKey:'credencial_fk' })
 
-
-
+PlantillaModel.hasMany(CampañaModel, { as:'campaña', foreignKey:'plantilla_fk'})
+CampañaModel.belongsTo(PlantillaModel, { foreignKey:'plantilla_fk'})
