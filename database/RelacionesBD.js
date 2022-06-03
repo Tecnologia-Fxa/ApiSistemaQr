@@ -11,10 +11,7 @@ const IncentivosModel = require("./models/IncentivosModel");
 const CredencialModel = require("./models/CredencialModel");
 const CampañaModel = require("./models/CampañaModel");
 const PlantillaModel = require("./models/PlantillaModel");
-//TODO:BORRAR
-//!BORRAR
-require("./models/CredencialModel");
-
+const CampañaUsuarioModel = require("./models/CampañaUsuarioModel");
 
 //!-------------------------------------------------------------------------------------------------
 
@@ -45,7 +42,7 @@ UsuarioModel.belongsTo(LugarRegistroModel, { foreignKey:'lugar_registro_fk' })
 
 //Relaciones 1 a 0..* (uno a 0 o muchos)
 //?1 a 0..* significa que un registro puede tener asociados ninguno o muchos registros de otra tabla
-//*Ejemplo: 1 usuario puede tener de 0 a mucahs fotos en su galeria, pero 1 foto solo pertenece a un usuario
+//*Ejemplo: 1 usuario puede tener de 0 a muchas fotos en su galeria, pero 1 foto solo pertenece a un usuario
 
 LugarRegistroModel.hasMany(IncentivosModel, { as:'incentivos', foreignKey:'lugar_registro_fk'})
 IncentivosModel.belongsTo(LugarRegistroModel, { foreignKey:'lugar_registro_fk' })
@@ -55,3 +52,12 @@ CampañaModel.belongsTo(CredencialModel, { foreignKey:'credencial_fk' })
 
 PlantillaModel.hasMany(CampañaModel, { as:'campaña', foreignKey:'plantilla_fk'})
 CampañaModel.belongsTo(PlantillaModel, { foreignKey:'plantilla_fk'})
+
+
+//Relacion M:N mitigada
+//Relacion tabla debil entre campaña y usuario
+UsuarioModel.hasMany(CampañaUsuarioModel, { as:'campaña_usuario', foreignKey:'usuario_fk'})
+CampañaUsuarioModel.belongsTo(UsuarioModel, { foreignKey:'usuario_fk'})
+
+CampañaModel.hasMany(CampañaUsuarioModel, { as:'campaña_usuario', foreignKey:'campaña_fk'})
+CampañaUsuarioModel.belongsTo(CampañaModel, { foreignKey:'campaña_fk'})

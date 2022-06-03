@@ -20,4 +20,8 @@ router.use('/visit-counter', require('./routes/ViewsCounterRouter'))
 
 router.use('/birthday', checkTokenLogin, require('./routes/CumpleañosRouter'))
 
+router.use('/plantilla', checkTokenLogin, require('./routes/PlanillaRouter'))
+
+router.use('/campana', checkTokenLogin, require('./routes/CampañaRouter'))
+
 module.exports = router

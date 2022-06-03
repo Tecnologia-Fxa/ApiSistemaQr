@@ -17,6 +17,23 @@ const sendSMSCode = async (numeroTelefono, codigoDescuento, nombre) => {
     }
 }
 
+const sendSMSGeneral = async (numeroTelefono, mensaje) => {
+    const params = {
+        Message: mensaje,
+        PhoneNumber: numeroTelefono, 
+        };
+        
+    try {
+        const data = await snsClient.send(new PublishCommand(params))
+        return {status:201,data,message:"Enviado Con Exito"}
+
+    } catch (err) {
+        console.log(err)
+        return {status:200,err}
+    }
+}
+
 module.exports = {
-    sendSMSCode
+    sendSMSCode,
+    sendSMSGeneral
 }
