@@ -2,6 +2,6 @@ const CampañaController = require("../../controller/CampañaController");
 
 const router = require("express").Router();
 
-router.post('/prueba', CampañaController.prueba)
+router.post('/new', CampañaController.new)
 
 module.exports =  router

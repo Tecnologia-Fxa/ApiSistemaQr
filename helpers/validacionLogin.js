@@ -23,6 +23,7 @@ const checkTokenLogin = (req,res,next)=>{
     }
     
     req.rol = payload.rol
+    req.id_rol = payload.id_rol
 
     next();
 }

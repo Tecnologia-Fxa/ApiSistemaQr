@@ -7,9 +7,10 @@ const jwt = require('jwt-simple')
 require ('dotenv').config();
 const moment = require('moment');
 
-const tokenAcceso = (rol) =>{
+const tokenAcceso = (rol, id_rol) =>{
     let payload ={
-        rol:rol,
+        rol,
+        id_rol,
         createAt: moment().unix(),
         expiredAt: moment().add(90,'minutes').unix()
     }
@@ -31,7 +32,7 @@ const CredencialController = {
         if(user){
             let log = bcrypt.compareSync(contraseña, user.contraseña)
             if(log)
-                res.json(tokenAcceso(user.nombre_usuario))
+                res.json(tokenAcceso(user.nombre_usuario, user.id_credencial))
             else 
                 res.status(400).json("Error usuario y/o contraseña incorrectos")     
         }else
