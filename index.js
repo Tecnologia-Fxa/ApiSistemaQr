@@ -73,12 +73,18 @@ app.use(cors())
 //Cuando se entra al sistema
 app.use('/api', require('./router/router'))
 
+//La siguente seccion de codigo se usa para inicializar el servidor
+//como primer parametro se le pasa el puerto en el que se va a esjecutar el servidor
+//como segundo parametro una funcion la cual vaa mostrar en consola en que puerto se arranco el servidor
 app.listen(PORT, () =>{
-    console.log(`El proyecto a sido arrancado en http://localhost:${PORT}`);
+    console.log(`El proyecto a sido arrancado en el puerto:${PORT}`);
 
+    //Inicializamos el mapeo a la base de datos, donde le decimos que no actualice la informacion
     sequelize.sync( {force: false} ).then(()=>{
+        //Si todo sale bien muestra que la conexion fue exitosa
         console.log('Conexion a la bd exitosa');
     }).catch(error=>{
+        //Si algo sale mal muestra error y descripcion de este error
         console.log('Error al conectar la bd: ' + error)
     });
 });
