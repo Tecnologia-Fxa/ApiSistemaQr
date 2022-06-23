@@ -32,10 +32,16 @@ router.get('/find', checkTokenLogin, validateId, LugarRegistroController.getOne)
 router.post('/create',  checkTokenLogin, checkAdmin, validationCreate, LugarRegistroController.create)
 
 //Cuando la ruta sea "/update" validara el login en el api, validara que el rol que ejecuta la funcion sea admin, y validara que los campos coincidan a lo requerido, despues ejecutara el metodo update del controlador lugar de registro
+//Esta ruta actualiza la definicion de un lugar de registro segun el id ingresado por la url
 router.put('/update',  checkTokenLogin, checkAdmin, validationCreate, validateId, LugarRegistroController.update)
 
+//Cuando la ruta sea "/disable" validara el token de login,validara que el rol sea admin, despues validara que ingrese un id por la ruta y despues ejecutara el metodo disable del controlador de lugar de registro
+//Esta ruta desabilita de la vista del formulario un determinado lugar de registro
 router.put('/disable',  checkTokenLogin, checkAdmin, validateId, LugarRegistroController.disable)
 
+//Cuando la ruta sea "/enablevalidarra el acceso al api, despues validara que el rol sea admin y por ultimo validara que ingrese un id por la consulta... despues de esto ejecutara el metodo enable del controlador de lugar de registro
+//Esta ruta activa un lugar de registro que se encuentre inactivo, esto para que se pueda ver en el formulario
 router.put('/enable',  checkTokenLogin, checkAdmin, validateId, LugarRegistroController.enable)
 
+//Exportamos el router
 module.exports =  router
