@@ -13,7 +13,7 @@ const sendSMSCode = async (numeroTelefono, codigoDescuento, nombre) => {
     //Definimos un objeto el cual tendra el mensaje y el numero de telefono
     const params = {
         //Campo que almacenara el contenido del mensaje a enviar
-        Message: `Hola ${nombre} te damos la bienvenida a FXA! \nTu codigo de descuento es: ${codigoDescuento}`,
+        Message: `Hola ${nombre} te damos la bienvenida a FXA! \nTu codigo de 10% de descuento es: ${codigoDescuento}`,
         //Campo que contendra el numero al que se le va a enviar el mensaje
         PhoneNumber: numeroTelefono, 
     };
