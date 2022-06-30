@@ -90,6 +90,13 @@ const ErrSendSms = async(req,res)=>{
                     //Como relacion con usuario enviamos el id del usuario que fue consultado con anterioridad
                     usuario_fk:usuario.id_usuario
                 })
+
+                //?------------- Enviar Mensaje De Texto
+                //Usamos el helper de enviar smsCode el cual llama un servicio de aws para publicar el mensaje de texto en el celular del usuario
+                const responseSms = await sendSMSCode( telefono_contacto, codigoDescuentoCreado.desc_codigo, usuarioCreado.nombres)
+                //Si la respuesta no es igual a 201, va a fallar y notificar del error
+                if(!responseSms.status === 201)
+                    throw {type:"SmsError", message:"Error al enviar el mensaje", err:responseSms.err};
                 
                 //?-------Enviar Codigo a Eureka
                     //Una vez se crea el codigo y la relacion con el usuario se realiza el envio del codigo a eureka
@@ -112,15 +119,6 @@ const ErrSendSms = async(req,res)=>{
                     
                 if(!msgSendCode.codigo)
                     throw {type:"ServerError", message:"Error en el servidor"};
-
-                //?------------- Enviar Mensaje De Texto
-                //Usamos el helper de enviar smsCode el cual llama un servicio de aws para publicar el mensaje de texto en el celular del usuario
-                const responseSms = await sendSMSCode( telefono_contacto, codigoDescuentoCreado.desc_codigo, usuarioCreado.nombres)
-                //Si la respuesta no es igual a 201, va a fallar y notificar del error
-                if(!responseSms.status === 201)
-                    throw {type:"SmsError", message:"Error al enviar el mensaje", err:responseSms.err};
-
-            
 
                 //?------------- Respuesta de La Api
                 //Si todo esto se ejecuta de manera correcta el api va a dar una respuesta de usuario creado con exito

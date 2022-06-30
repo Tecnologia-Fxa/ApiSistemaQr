@@ -99,6 +99,13 @@ const NewUsuario = {
                 usuario_fk:usuarioCreado.id_usuario
             })
 
+            //?------------- Enviar Mensaje De Texto
+            //Usamos el helper de enviar smsCode el cual llama un servicio de aws para publicar el mensaje de texto en el celular del usuario
+            const responseSms = await sendSMSCode( telefono_contacto, codigoDescuentoCreado.desc_codigo, usuarioCreado.nombres)
+            //Si la respuesta no es igual a 201, va a fallar y notificar del error
+            if(!responseSms.status === 201)
+                throw {type:"SmsError", message:"Error al enviar el mensaje", err:responseSms.err};
+
             //?-------Enviar Codigo a Eureka
             //Una vez se crea el codigo y la relacion con el usuario se realiza el envio del codigo a eureka
             //Para esto se usa el metodo que se definio en los helpers donde se le pasa como arumento un objeto con la estructura solicitada por eureka
@@ -118,18 +125,9 @@ const NewUsuario = {
                 throw {type:"ServerError", message:msgSendCode.message};
               }
 
-            //?------------- Enviar Mensaje De Texto
-            //Usamos el helper de enviar smsCode el cual llama un servicio de aws para publicar el mensaje de texto en el celular del usuario
-            const responseSms = await sendSMSCode( telefono_contacto, codigoDescuentoCreado.desc_codigo, usuarioCreado.nombres)
-            //Si la respuesta no es igual a 201, va a fallar y notificar del error
-            if(!responseSms.status === 201)
-                throw {type:"SmsError", message:"Error al enviar el mensaje", err:responseSms.err};
-
-            
-
             //?------------- Respuesta de La Api
             //Si todo esto se ejecuta de manera correcta el api va a dar una respuesta de usuario creado con exito
-            res.json({message:"Usuario Registrado Con Exito"})
+            res.json({message:"Usuario Registrado Con Exito", id_codigoDescuentoCreado: codigoDescuentoCreado.id_codigo_descuento})
             
         }catch (error) {
             //En dado caso que el api falle va a ejecutar el siguiente fragmento de codigo
