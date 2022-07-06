@@ -69,9 +69,9 @@ app.use(express.urlencoded({ extended:false }));
 const cors = require('cors')
 app.use(cors())
 
-//Acontinuacion la sección que redirecciona cuando la busqueda sea / 
+//Acontinuacion la sección que redirecciona cuando la busqueda sea /api-qr-code
 //Cuando se entra al sistema
-app.use('/api', require('./router/router'))
+app.use('/api-qr-code', require('./router/router'))
 
 //La siguente seccion de codigo se usa para inicializar el servidor
 //como primer parametro se le pasa el puerto en el que se va a esjecutar el servidor
