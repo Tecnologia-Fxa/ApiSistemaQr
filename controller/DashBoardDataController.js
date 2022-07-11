@@ -66,18 +66,22 @@ const DashBoardDataController = {
             //Donde se retorna que el reultado va a ser igual a una fecha por defecto
             let fecha_inicio1 = new Date(`${fecha_inicio}T12:00:00.000Z`)
             let fecha_fin1 = new Date(`${fecha_inicio}T12:00:00.000Z`)
-            if(!resultado[0][0]){
+            if(resultado[0][0] === undefined){
                 resultado[0] = [
                     {año: fecha_inicio1.getFullYear(), mes: fecha_inicio1.getMonth()+1, numRecords: 0},
-                    {año: fecha_fin1.getFullYear(), mes: fecha_fin1.getMonth()+1, numRecords: 0}
+                ]
+                resultado[1] = [
+                    {año: fecha_inicio1.getFullYear(), mes: fecha_inicio1.getMonth()+1, numRecords: 0},
                 ]
             }
+
 
             //se define una variable que va a validar el número del mes sea adecuado
             let i 
             //Recorremos el arreglo de resultado 
             //Donde vamos a retornar 2 arreglos donde el primero es los meses y el segundo el total de registros por mes
             resultado[0].forEach((el,id) => {
+
                 if (id===0){
                     while(mes_fecha_inicio!==el.mes){
                         if(mes_fecha_inicio===13)
@@ -97,16 +101,17 @@ const DashBoardDataController = {
                 while(i!==el.mes){
                     if(i>12)
                         i=1
-
-                    meses.push(i)
-                    valores.push(0)
-
-                    i++
+                        
+                        meses.push(i)
+                        valores.push(0)
+                        
+                        i++
                 }
 
                 //Despues pushea el mes con el valor de registros que tiene el mes
                 meses.push(el.mes)
                 valores.push(el.numRecords)
+
 
                 //incrementa i en 1
                 i++
