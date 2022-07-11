@@ -13,7 +13,7 @@ const enviarCorreo = async(para, asunto, msj) => {
     port: '587',
     auth: {
       user: "SISTEMAS@FUXIAACCESORIOS.COM",
-      pass: "ymZ05TRO4KnhpYMv",
+      pass: "xsmtpsib-bc95872abda1ff1180c7c1b4eba0b39cc12276f1b02e7df77072ed5c54af9f27-9t058rJ1dxNPVgcs",
     },
   });
 

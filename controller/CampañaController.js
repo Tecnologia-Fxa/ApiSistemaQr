@@ -89,8 +89,10 @@ const CampañaController = {
 
                 //Si el metodo incluye un 2 va a enviar un correo electronico
                 //Pasa como argumentos el correo al que se va a enviar el titulo de la plantilla y el texto generado anterior mente
-                if(arregloMetodo.includes('2'))
+                if(arregloMetodo.includes('2')){
+                    console.log(2)
                     enviarCorreo(usuario.correo_electronico, plantilla.titulo, texto)
+                }
 
             } catch (error) {
                 //En dado caso de que falle mostrara en la consola el error y en que numero de telefono ocurrio

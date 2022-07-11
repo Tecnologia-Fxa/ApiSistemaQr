@@ -50,6 +50,9 @@ const DashBoardDataController = {
         try{
             //Ejecutamos la consulta donde trae todos los registros segun las fechas dadas
             const resultado = await sequelize.query(`select year(createdAt) año,month(createdAt) mes, count(*) as numRecords from usuario where (createdAt BETWEEN '${fecha_inicio}' AND '${fecha_fin}') ${condicion_lugar} Group By  año, mes`)
+
+            
+
             //Definimos los arreglos que van a contener la data
             const meses = []
             const valores = []
@@ -59,44 +62,45 @@ const DashBoardDataController = {
             let mes_fecha_inicio = new Date(`${fecha_inicio}T12:00:00.000Z`).getMonth()+1
             let mes_fecha_fin = new Date(`${fecha_fin}T12:00:00.000Z`).getMonth()+1
 
+            //Creamos una funcion para mitigar el error de que la consulta no obtenga algun resultado
+            //Donde se retorna que el reultado va a ser igual a una fecha por defecto
+            let fecha_inicio1 = new Date(`${fecha_inicio}T12:00:00.000Z`)
+            let fecha_fin1 = new Date(`${fecha_inicio}T12:00:00.000Z`)
+            if(!resultado[0][0]){
+                resultado[0] = [
+                    {año: fecha_inicio1.getFullYear(), mes: fecha_inicio1.getMonth()+1, numRecords: 0},
+                    {año: fecha_fin1.getFullYear(), mes: fecha_fin1.getMonth()+1, numRecords: 0}
+                ]
+            }
+
             //se define una variable que va a validar el número del mes sea adecuado
             let i 
             //Recorremos el arreglo de resultado 
+            //Donde vamos a retornar 2 arreglos donde el primero es los meses y el segundo el total de registros por mes
             resultado[0].forEach((el,id) => {
-                //si la pocicion del elemento es 0
                 if (id===0){
-                    //Mientras que el mes de fecha inicio sea diferente al mes del elemento
                     while(mes_fecha_inicio!==el.mes){
-                        //En dado caso que el mes se pase de 12 va a volver a 1
                         if(mes_fecha_inicio===13)
                             mes_fecha_inicio=1
         
-                        //En los valores cada vez que haga este ciclo va a pushear el mes, con valor de 0 en la data
                         meses.push(mes_fecha_inicio)
                         valores.push(0)
 
-                        //Incrementa en 1 el mes de inicio cada que realiza el ciclo hasta emparejar con el mes de iniciodel elemento
                         mes_fecha_inicio++
                     }
-                    //Se define i como el mes definido en el elemento
                     i=el.mes
                 }
                 
-                //En dado caso que i sea mayor a 12 i va a ser definido como 1
                 if(i>12)
                     i=1
                 
-                //Mientras que i sea diferente a el mes 
                 while(i!==el.mes){
-                    //Si i es mayor a 12 va a volverlo 1
                     if(i>12)
                         i=1
 
-                    //Va a pushear el numero del mes con valor de 0
                     meses.push(i)
                     valores.push(0)
 
-                    //Incrementa i en 1
                     i++
                 }
 
