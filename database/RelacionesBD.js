@@ -12,7 +12,6 @@ const CredencialModel = require("./models/CredencialModel");
 const CampañaModel = require("./models/CampañaModel");
 const PlantillaModel = require("./models/PlantillaModel");
 const CampañaUsuarioModel = require("./models/CampañaUsuarioModel");
-
 //!-------------------------------------------------------------------------------------------------
 
 //Relaciones 1 a 1
