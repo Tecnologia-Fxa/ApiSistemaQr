@@ -39,8 +39,7 @@ router.use('/plantilla', checkTokenLogin, require('./routes/PlanillaRouter'))
 //Cuando la ruta sea "/campana" va a validar que exista un logueo en el api, y despues va a dirigirse a la siguiente carpeta
 router.use('/campana', checkTokenLogin, require('./routes/CampañaRouter'))
 
-//Cuando la ruta sea "/incentivo" va a dirigirse a la siguiente carpeta
-router.use('/incentivo', checkTokenLogin, require('./routes/IncentivosRouter'))
+router.use('/incentivo-general', require('./routes/IncentivoGeneralRouter'))
 
 //Exportamos el router para que sea usado en otra parte del codigo
 module.exports = router

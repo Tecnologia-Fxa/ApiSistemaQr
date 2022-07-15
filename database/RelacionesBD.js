@@ -7,11 +7,12 @@
 const CodigoDescuentoModel = require("./models/CodigoDescuentoModel");
 const LugarRegistroModel = require("./models/LugarRegistroModel");
 const UsuarioModel = require("./models/UsuarioModel");
-const IncentivosModel = require("./models/IncentivosModel");
 const CredencialModel = require("./models/CredencialModel");
 const CampañaModel = require("./models/CampañaModel");
 const PlantillaModel = require("./models/PlantillaModel");
 const CampañaUsuarioModel = require("./models/CampañaUsuarioModel");
+const IncentivoLugarRegistroModel = require("./models/IncentivoLugarRegistroModel");
+const IncentivoGeneralModel = require("./models/IncentivoGeneralModel");
 //!-------------------------------------------------------------------------------------------------
 
 //Relaciones 1 a 1
@@ -43,9 +44,6 @@ UsuarioModel.belongsTo(LugarRegistroModel, { foreignKey:'lugar_registro_fk' })
 //?1 a 0..* significa que un registro puede tener asociados ninguno o muchos registros de otra tabla
 //*Ejemplo: 1 usuario puede tener de 0 a muchas fotos en su galeria, pero 1 foto solo pertenece a un usuario
 
-LugarRegistroModel.hasMany(IncentivosModel, { as:'incentivos', foreignKey:'lugar_registro_fk'})
-IncentivosModel.belongsTo(LugarRegistroModel, { foreignKey:'lugar_registro_fk' })
-
 CredencialModel.hasMany(CampañaModel, { as:'campaña', foreignKey:'credencial_fk'})
 CampañaModel.belongsTo(CredencialModel, { foreignKey:'credencial_fk' })
 
@@ -60,3 +58,11 @@ CampañaUsuarioModel.belongsTo(UsuarioModel, { foreignKey:'usuario_fk'})
 
 CampañaModel.hasMany(CampañaUsuarioModel, { as:'campaña_usuario', foreignKey:'campaña_fk'})
 CampañaUsuarioModel.belongsTo(CampañaModel, { foreignKey:'campaña_fk'})
+
+//Relacion tabla debil entre incentivo general y lugarRegistro
+LugarRegistroModel.hasMany(IncentivoLugarRegistroModel, { as:'incentivo_lugar_registro', foreignKey:'lugar_registro_fk'})
+IncentivoLugarRegistroModel.belongsTo(LugarRegistroModel, { foreignKey:'lugar_registro_fk' })
+
+IncentivoGeneralModel.hasMany(IncentivoLugarRegistroModel, { as:'incentivo_lugar_registro', foreignKey:'incentivo_general_fk'})
+IncentivoLugarRegistroModel.belongsTo(IncentivoGeneralModel, { foreignKey:'incentivo_general_fk' })
+

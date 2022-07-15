@@ -19,7 +19,7 @@ CampañaModel.init({
     //El primer campo requerido es el id
     //Ya que se necesita un identificador para gestionar la información de manera mas optima
     id_campaña:{
-        //Como es un ID sera de tipo entero(INTEGER)
+        //Como es un ID siera de tipo entero(INTEGER)
         type: DataTypes.INTEGER,
         //Establecemos que este campo sera llave primaria de la tabla 
         primaryKey: true,
@@ -35,7 +35,7 @@ CampañaModel.init({
         allowNull:false,
     },
 
-    //campo que almacenara la fecha en la que se publico la campaña
+    //campo que almacenara la fecha en la que se publco la campaña
     fecha_publicacion:{
         type:DataTypes.DATEONLY,
         allowNull:false

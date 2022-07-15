@@ -10,21 +10,32 @@ const { Model, DataTypes} = require('sequelize');
 const sequelize = require('../ConfigBD');
 
 //Creamos una clase que hereda todos los atributos de la superclase Model
-class IncentivosModel extends Model {};
+class IncentivoGeneralModel extends Model {};
 
 //Usamos el metodo init para realizar el respectivo mapeo de la tabla
-IncentivosModel.init({
+IncentivoGeneralModel.init({
     //Como se ha mencionado antes para el mapeo la función solicita pasar como argumentos los campos que se requieren en la tabla
 
     //El primer campo requerido es el id
     //Ya que se necesita un identificador para gestionar la información de manera mas optima
-    id_incentivo:{
+    id_incentivo_general:{
         //Como es un ID sera de tipo entero(INTEGER)
         type: DataTypes.INTEGER,
         //Establecemos que este campo sera llave primaria de la tabla 
         primaryKey: true,
         //Se define que tendra un auto incremento segun el número de registro que se esté ingresando
         autoIncrement: true
+    },
+
+    //Campo que almacenara el titulo del incentivo general
+    titulo:{
+        type: DataTypes.STRING(75),
+        allowNull:false,
+    },
+
+    //Campo que almacenara una breve descripcion del incentivo general
+    descripcion:{
+        type: DataTypes.STRING(300)
     },
 
     //campo que almacenara la meta del incentivo
@@ -49,21 +60,13 @@ IncentivosModel.init({
         type:DataTypes.DATEONLY,
         //Campo obligatorio
         allowNull:false
-    },
-
-    //campo que almacenara la meta del incentivo
-    lugar_registro_fk:{
-        //Tipo de dato entero
-        type:DataTypes.INTEGER,
-        //Campo obligatorio
-        allowNull:false,
     }
 
 },{
     //Importamos la conexion a la base de datos
     sequelize,
     //Nombre de la tabla
-    modelName: 'incentivo',
+    modelName: 'incentivo_general',
     //Establecemos los timestam,p como falso para que no nos genere campo de actualizacion y creacion de registro
     timestamps:false,
     //Congelamos el nombre de la tabla para que no hayan cambios en la estructura de la bd con el tema de las s
@@ -71,4 +74,4 @@ IncentivosModel.init({
 });
 
 //Exportamos el modulo para usarlo en nuestro sistema
-module.exports = IncentivosModel
+module.exports = IncentivoGeneralModel
