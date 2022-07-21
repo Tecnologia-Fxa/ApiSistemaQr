@@ -109,6 +109,28 @@ const IncentivoGeneralController = {
         })
     },
 
+    updateIncentivoLugarRegistro:async()=>{
+
+        const {
+            lugar_registro_fk,
+            incentivo_general_fk,
+            meta_a_cumplir
+        } = req.body
+
+        IncentivoLugarRegistroModel.update(
+            {
+                meta_a_cumplir
+            },
+            {
+                where:{
+                    lugar_registro_fk,
+                    incentivo_general_fk
+                }
+            }
+        )
+
+    },
+
     delete:async(req,res)=>{
         const {id_incentivo_general} = req.query
         await IncentivoGeneralModel.destroy({where:{id_incentivo_general}})

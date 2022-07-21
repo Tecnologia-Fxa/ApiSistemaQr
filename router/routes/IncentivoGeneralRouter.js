@@ -1,12 +1,15 @@
 const IncentivoGeneralController = require("../../controller/IncentivoGeneralController");
+const { validationIncentivo, validationUpdateIncentivo, validationDeleteIncentivo, validationUpdateIncentivoLugar } = require("../../validations/validationIncentivo");
 
 const router = require("express").Router();
 
-router.post('/create', IncentivoGeneralController.create)
+router.post('/create', validationIncentivo, IncentivoGeneralController.create)
 
-router.put('/update', IncentivoGeneralController.update)
+router.put('/update', validationUpdateIncentivo, IncentivoGeneralController.update)
 
-router.delete('/delete', IncentivoGeneralController.delete)
+router.put('/update-incentivo-lugar', validationUpdateIncentivoLugar, IncentivoGeneralController.updateIncentivoLugarRegistro)
+
+router.delete('/delete', validationDeleteIncentivo, IncentivoGeneralController.delete)
 
 router.get('/', IncentivoGeneralController.getAll)
 
