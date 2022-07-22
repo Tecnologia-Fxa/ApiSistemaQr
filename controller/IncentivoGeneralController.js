@@ -189,31 +189,29 @@ const IncentivoGeneralController = {
         !id_incentivo_general?id_incentivo_general=1:id_incentivo_general
 
         const data = await sequelize.query(`
-            SELECT 
-                l.nombre_lugar_registro,
-                i_r.meta_a_cumplir,
-                case
-                    when sum(u.createdAt BETWEEN i.fecha_inicio AND i.fecha_corte) is null THEN 0 
-                    else sum(u.createdAt BETWEEN i.fecha_inicio AND i.fecha_corte)
-                end total_registros
-            FROM
-                incentivo_lugar_registro i_r
-                    LEFT JOIN
-                incentivo_general i ON i_r.incentivo_general_fk = i.id_incentivo_general
-                    LEFT JOIN
-                lugar_registro l ON i_r.lugar_registro_fk = l.id_lugar_registro
-                    LEFT JOIN
-                usuario u ON u.lugar_registro_fk = l.id_lugar_registro
-            WHERE
-                i.id_incentivo_general = ${id_incentivo_general}
-            GROUP BY 
-                i.titulo, 
-                i.descripcion, 
-                i.meta_incentivo, 
-                i_r.meta_a_cumplir, 
-                i.fecha_inicio, 
-                i.fecha_corte, 
-                l.nombre_lugar_registro
+        SELECT 
+            l.id_lugar_registro,
+            l.nombre_lugar_registro,
+            i_r.meta_a_cumplir,
+            case
+                when sum(u.createdAt BETWEEN i.fecha_inicio AND i.fecha_corte) is null THEN 0 
+                else sum(u.createdAt BETWEEN i.fecha_inicio AND i.fecha_corte)
+            end total_registros
+        FROM
+            incentivo_lugar_registro i_r
+                LEFT JOIN
+            incentivo_general i ON i_r.incentivo_general_fk = i.id_incentivo_general
+                LEFT JOIN
+            lugar_registro l ON i_r.lugar_registro_fk = l.id_lugar_registro
+                LEFT JOIN
+            usuario u ON u.lugar_registro_fk = l.id_lugar_registro
+        WHERE
+            i.id_incentivo_general = 1
+        GROUP BY 
+            l.id_lugar_registro,
+            l.nombre_lugar_registro
+        ORDER BY 
+            l.nombre_lugar_registro;
         `)
 
         res.json(data[0])
