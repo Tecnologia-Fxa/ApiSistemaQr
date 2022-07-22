@@ -109,7 +109,7 @@ const IncentivoGeneralController = {
         })
     },
 
-    updateIncentivoLugarRegistro:async()=>{
+    updateIncentivoLugarRegistro:async(req,res)=>{
 
         const {
             lugar_registro_fk,
@@ -127,7 +127,9 @@ const IncentivoGeneralController = {
                     incentivo_general_fk
                 }
             }
-        )
+        ).then(()=>{
+            res.json('Incentivo Actualizado')
+        })
 
     },
 
