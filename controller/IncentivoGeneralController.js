@@ -193,7 +193,7 @@ const IncentivoGeneralController = {
             l.id_lugar_registro,
             l.nombre_lugar_registro,
             i_r.meta_a_cumplir,
-            "" new_meta_a_cumplir,
+            i_r.meta_a_cumplir new_meta_a_cumplir,
             case
                 when sum(u.createdAt BETWEEN i.fecha_inicio AND i.fecha_corte) is null THEN 0 
                 else sum(u.createdAt BETWEEN i.fecha_inicio AND i.fecha_corte)
