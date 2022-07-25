@@ -43,6 +43,14 @@ const validationDeleteIncentivo = [
     (req,res,next)=>validateResult(req,res,next)
 ]
 
+const validationDeleteIncentivoLugar = [
+    validateParam('lugar_registro_fk'),
+    validateNum('lugar_registro_fk'),
+    validateParam('incentivo_general_fk'),
+    validateNum('incentivo_general_fk'),
+    (req,res,next)=>validateResult(req,res,next)
+]
+
 const validationUpdateIncentivoLugar = [
     validateParam('lugar_registro_fk'),
     validateNum('lugar_registro_fk'),
@@ -53,4 +61,4 @@ const validationUpdateIncentivoLugar = [
     (req,res,next)=>validateResult(req,res,next)
 ]
 
-module.exports = { validationIncentivo, validationUpdateIncentivo, validationDeleteIncentivo, validationUpdateIncentivoLugar }
+module.exports = { validationIncentivo, validationUpdateIncentivo, validationDeleteIncentivo, validationUpdateIncentivoLugar, validationDeleteIncentivoLugar }
