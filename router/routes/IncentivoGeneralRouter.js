@@ -9,7 +9,7 @@ router.put('/update', validationUpdateIncentivo, IncentivoGeneralController.upda
 
 router.put('/update-incentivo-lugar', validationUpdateIncentivoLugar, IncentivoGeneralController.updateIncentivoLugarRegistro)
 
-router.delete('/delete-incentivo-lugar', validationDeleteIncentivoLugar, IncentivoGeneralController.deleteIncentivoLugarRegistro)
+router.post('/delete-incentivo-lugar', validationDeleteIncentivoLugar, IncentivoGeneralController.deleteIncentivoLugarRegistro)
 
 router.delete('/delete', validationDeleteIncentivo, IncentivoGeneralController.delete)
 
