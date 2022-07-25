@@ -1,4 +1,4 @@
-const { Op } = require("sequelize")
+const { Op, where } = require("sequelize")
 const sequelize = require("../database/ConfigBD")
 const IncentivoGeneralModel = require("../database/models/IncentivoGeneralModel")
 const IncentivoLugarRegistroModel = require("../database/models/IncentivoLugarRegistroModel")
@@ -138,6 +138,17 @@ const IncentivoGeneralController = {
         await IncentivoGeneralModel.destroy({where:{id_incentivo_general}})
         await IncentivoLugarRegistroModel.destroy({where:{incentivo_general_fk:id_incentivo_general}})
         res.json('Se han eliminado los registros')
+    },
+
+    deleteIncentivoLugarRegistro:async(req,res)=>{
+        const {
+            lugar_registro_fk,
+            incentivo_general_fk
+        } = req.body
+
+        IncentivoLugarRegistroModel.destroy({ where:{lugar_registro_fk, incentivo_general_fk} }).then(()=>{
+            res.json('Lugar de registo a sido removido del incentivo con exito')
+        })
     },
 
     getAll:async(req,res)=>{
