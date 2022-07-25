@@ -38,8 +38,8 @@ const validationUpdateIncentivo = [
 ]
 
 const validationDeleteIncentivo = [
-    validateParamQuery('id_incentivo'),
-    validateNum('id_incentivo'),
+    validateParamQuery('id_incentivo_general'),
+    validateNum('id_incentivo_general'),
     (req,res,next)=>validateResult(req,res,next)
 ]
 
