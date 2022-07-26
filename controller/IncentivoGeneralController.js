@@ -218,7 +218,7 @@ const IncentivoGeneralController = {
                 LEFT JOIN
             usuario u ON u.lugar_registro_fk = l.id_lugar_registro
         WHERE
-            i.id_incentivo_general = 1
+            i.id_incentivo_general = ${id_incentivo_general}
         GROUP BY 
             l.id_lugar_registro,
             l.nombre_lugar_registro
