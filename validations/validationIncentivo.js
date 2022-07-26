@@ -7,7 +7,7 @@ const { validateParam, validateNum, validateParamQuery, validateLength, validate
 const validationIncentivo = [
     validateParam('titulo'),
     validateLength('titulo', {min:4, max:75}),
-    validateLength('descripcion', {min:1, max:300}),
+    validateLength('descripcion', {min:0, max:300}),
     validateParam('meta_incentivo'),
     validateNum('meta_incentivo'),
     validateParam('fecha_inicio'),
@@ -26,7 +26,7 @@ const validationUpdateIncentivo = [
     validateNum('tipo_update'),
     validateParam('titulo'),
     validateLength('titulo', {min:4, max:75}),
-    validateLength('descripcion', {min:1, max:300}),
+    validateLength('descripcion', {min:0, max:300}),
     validateParam('meta_incentivo'),
     validateNum('meta_incentivo'),
     validateParam('fecha_inicio'),
