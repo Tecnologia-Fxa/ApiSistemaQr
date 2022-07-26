@@ -19,8 +19,8 @@ const validationIncentivo = [
 ]
 
 const validationUpdateIncentivo = [
-    validateParamQuery('id_incentivo'),
-    validateNum('id_incentivo'),
+    validateParamQuery('id_incentivo_general'),
+    validateNum('id_incentivo_general'),
     validateParamQuery('tipo_update'),
     validateNum('tipo_update'),
     validateParam('titulo'),
