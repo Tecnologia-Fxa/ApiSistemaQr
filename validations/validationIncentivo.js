@@ -30,8 +30,6 @@ const validationUpdateIncentivo = [
     validateNum('meta_incentivo'),
     validateParam('fecha_inicio'),
     validateParam('fecha_corte'),
-    validateArray('arreglo_lugares'),
-    validateArray('arreglo_lugares_meta_definida'),
     (req,res,next)=>validateResult(req,res,next)
 ]
 
