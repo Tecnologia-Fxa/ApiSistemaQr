@@ -13,7 +13,7 @@ const enviarCorreo = async(para, asunto, msj) => {
     port: '587',
     auth: {
       user: "SISTEMAS@FUXIAACCESORIOS.COM",
-      pass: "ymZ05TRO4KnhpYMv",
+      pass: "",
     },
   });
 
