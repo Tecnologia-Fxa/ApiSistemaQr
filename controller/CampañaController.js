@@ -14,12 +14,18 @@ const UsuarioModel = require("../database/models/UsuarioModel")
 
 //Importamos el helper de enviar correo electronico
 const { enviarCorreo } = require("../helpers/SendEmail")
+const { EnviarEmailSendinBlue } = require("../helpers/sendEmailSendinBlue")
 
 //Importamos el helper de enviar mensaje de texto general
 const { sendSMSGeneral } = require("../helpers/sendSms")
 
 //Controlador encargado de gestionar campañas dependiendo los parametros establecidos (Pruebas)
 const CampañaController = {
+
+    prueba: async(req,res)=>{
+        EnviarEmailSendinBlue()
+        res.json('Enviado?')
+    },
 
     //Metodo encargado de crear una nueva campaña
     new: async(req,res)=>{

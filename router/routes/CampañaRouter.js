@@ -10,5 +10,7 @@ const router = require("express").Router();
 //Esta ruta va a crear una campaña ya sea por sms o email
 router.post('/new', CampañaController.new)
 
+router.get('/prueba', CampañaController.prueba)
+
 //Exportamos el router
 module.exports =  router

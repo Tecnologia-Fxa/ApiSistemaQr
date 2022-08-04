@@ -13,7 +13,7 @@ const enviarCorreo = async(para, asunto, msj) => {
     port: '587',
     auth: {
       user: "SISTEMAS@FUXIAACCESORIOS.COM",
-      pass: "xsmtpsib-bc95872abda1ff1180c7c1b4eba0b39cc12276f1b02e7df77072ed5c54af9f27-9t058rJ1dxNPVgcs",
+      pass: "ymZ05TRO4KnhpYMv",
     },
   });
 
@@ -35,6 +35,7 @@ const enviarCorreo = async(para, asunto, msj) => {
     //Si hay un error al enviar el correo
     if (error) {
       //Retorne mensaje de error
+      console.log(error)
       return 'Error al enviar el correo.'
     } else {
       //Si no envia mensaje de correo enviado
