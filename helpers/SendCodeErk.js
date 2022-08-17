@@ -7,6 +7,7 @@ const { default: axios } = require("axios");
 //El archivo donde se encuentran las variables de entorno es ".env"
 require ('dotenv').config();
 
+
 //Exportamos la funcion asyncrona que realiza el envio del codigo a eureka
 module.exports = async(data) => {
     //definimos una costante que va a ser la respuesta que dio el servidor

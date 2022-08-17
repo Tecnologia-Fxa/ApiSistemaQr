@@ -36,8 +36,6 @@ const UsuarioController = {
         //Definimos usuarios como el resultado de la consulta de findAndCountAll del modelo de usuario
         //Como parametros enviamos el orden, el limite, el salto, y los modelos que incluye
         const usuarios = await UsuarioModel.findAndCountAll({
-            //El orden es decendente desde la fecha de creacion
-            order:[['createdAt', 'DESC']],
             //El limite es la variable anterior mente definida
             limit,
             //El salto es la variable enterior mente definida
@@ -128,8 +126,6 @@ const UsuarioController = {
                 //Y el valor respectivo que entra en la consulta
                 [atribute]:{[getMethod(method)]:value}
             },
-            //Definimos el orden de la consulta como decendente en el campo de fecha
-            order:[['createdAt', 'DESC']]
         })
 
         //Organizamos la respuesta con el objeto de paginacion
@@ -174,9 +170,7 @@ const UsuarioController = {
             //variable que se define antes la cual depende de la pagina
             limit,
             //variable que se define antes la cual depende del tamaño
-            offset,
-            //Definimos el orden de la consulta como decendente en el campo de fecha
-            order:[['createdAt', 'DESC']]
+            offset
         })
         //Organizamos la respuesta con el objeto de paginacion
         const respuesta = getPagingData(usuarios, page, limit)
